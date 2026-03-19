@@ -13,10 +13,26 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
+            // basic data
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // pilihan role
+            $table->enum('role', ['nasabah', 'ao', 'admin', 'pimpinan'])
+                ->default('nasabah');
+
+            // profil
+            $table->string('nik')->nullable();
+            $table->text('alamat_ktp')->nullable();
+            $table->string('no_hp', 15)->nullable();
+            $table->string('pekerjaan')->nullable();
+
+            // file
+            $table->string('foto_profil')->nullable();;
+
             $table->rememberToken();
             $table->timestamps();
         });
@@ -36,6 +52,7 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
     }
+
 
     /**
      * Reverse the migrations.
