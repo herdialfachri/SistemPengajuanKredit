@@ -13,27 +13,41 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
+            // basic
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // role system
+            $table->enum('role', ['nasabah', 'ao', 'pimpinan', 'admin'])->default('nasabah');
+
+            // identitas
+            $table->string('nik', 20)->unique(); // KTP
+            $table->string('no_kk', 20)->nullable();
+            $table->string('npwp', 25)->nullable();
+
+            // kontak
+            $table->string('no_hp', 20);
+            $table->text('alamat');
+
+            // data pribadi
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan'])->nullable();
+            $table->string('status_perkawinan')->nullable();
+
+            // pekerjaan
+            $table->string('pekerjaan')->nullable();
+            $table->decimal('penghasilan', 15, 2)->nullable();
+
+            // foto & dokumen
+            $table->string('foto_ktp')->nullable();
+            $table->string('foto_diri')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
         });
     }
 
