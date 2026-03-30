@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Tabel users
         Schema::create('users', function (Blueprint $table) {
             $table->id();
 
@@ -49,6 +50,16 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // Tabel sessions (buat session database)
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->text('payload');
+            $table->integer('last_activity')->index();
+        });
     }
 
     /**
@@ -56,8 +67,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('users');
     }
 };

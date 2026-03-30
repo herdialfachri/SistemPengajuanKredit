@@ -30,13 +30,17 @@ class AuthController extends Controller
             'role' => 'nasabah'
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // Kalau request API (JSON)
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Register berhasil, silakan login',
+                'user' => $user
+            ]);
+        }
 
-        return response()->json([
-            'message' => 'Register berhasil',
-            'token' => $token,
-            'user' => $user
-        ]);
+        // Kalau request dari web (Blade)
+        return redirect()->route('login')
+            ->with('success', 'Register berhasil, silakan login dengan akun Anda');
     }
 
     // LOGIN
@@ -50,18 +54,27 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Email atau password salah'
-            ], 401);
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Email atau password salah'], 401);
+            }
+            return back()->with('error', 'Email atau password salah');
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Login berhasil',
-            'token' => $token,
-            'user' => $user
-        ]);
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Login berhasil',
+                'token' => $token,
+                'user' => $user
+            ]);
+        }
+
+        // Simpan token di session
+        session(['api_token' => $token]);
+
+        // Redirect ke halaman index (dashboard)
+        return redirect()->route('index')->with('success', 'Login berhasil');
     }
 
     // LOGOUT

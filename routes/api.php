@@ -11,6 +11,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
 });
 
-Route::get('/test', function () {
-    return 'API OK';
+use App\Http\Controllers\PengajuanController;
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::get('/pengajuan', [PengajuanController::class, 'index']);
+    Route::post('/pengajuan', [PengajuanController::class, 'store']);
+    Route::get('/pengajuan/{pengajuan}', [PengajuanController::class, 'show']);
 });
