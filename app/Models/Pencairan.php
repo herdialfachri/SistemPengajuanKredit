@@ -5,18 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// app/Models/Pencairan.php
 class Pencairan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['pengajuan_id', 'admin_id', 'jumlah_cair', 'tanggal_cair', 'catatan'];
+    protected $fillable = [
+        'pengajuan_id',
+        'admin_id',
+        'jumlah_cair',
+        'tanggal_cair',
+        'catatan',
+        'dokumentasi',
+        'dokumen_pendukung'
+    ];
 
-    public function pengajuan() {
-        return $this->belongsTo(Pengajuan::class);
+    // Relasi ke pengajuan
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'pengajuan_id', 'id');
     }
 
-    public function admin() {
-        return $this->belongsTo(User::class, 'admin_id');
+    // Relasi ke admin (user)
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'admin_id', 'id');
     }
 }

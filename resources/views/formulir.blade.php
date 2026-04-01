@@ -162,17 +162,17 @@ License: https://freebootstrap.net/license
         <!-- ======= Main =======-->
         <main>
 
-            <!-- ======= Formulir Register =======-->
-            <section class="hero__v6 section" id="register">
+            <!-- ======= Formulir =======-->
+            <section class="hero__v6 section" id="home">
                 <div class="container">
                     <!-- Heading Formulir -->
                     <div class="row mb-5">
                         <div class="col-md-6 mx-auto text-center">
                             <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">
-                                Formulir Registrasi Nasabah
+                                Formulir Pengajuan
                             </h2>
                             <p data-aos="fade-up" data-aos-delay="200">
-                                Silakan isi data diri Anda dengan lengkap dan benar
+                                Silakan isi formulir berikut dengan jujur dan benar
                             </p>
                         </div>
                     </div>
@@ -180,133 +180,82 @@ License: https://freebootstrap.net/license
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-wrapper" data-aos="fade-up" data-aos-delay="300">
-                                <form id="registerForm" action="#" method="POST">
+                                <form id="permohonanForm" action="#" method="POST" enctype="multipart/form-data">
                                     @csrf
-
-                                    <!-- Basic -->
+                                    <!-- Baris 1 -->
                                     <div class="row mb-3">
-                                        <div class="col-md-4">
-                                            <label for="nik" class="mb-2">NIK (Sesuai KTP)</label>
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="nik">NIK (Sesuai KTP)</label>
                                             <input class="form-control" id="nik" type="text" name="nik" required>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="name" class="mb-2">Nama (Sesuai KTP)</label>
-                                            <input class="form-control" id="name" type="text" name="name" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="email" class="mb-2">Email</label>
-                                            <input class="form-control" id="email" type="email" name="email" required>
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="nama">Nama (Sesuai KTP)</label>
+                                            <input class="form-control" id="nama" type="text" name="nama" required>
                                         </div>
                                     </div>
 
-                                    <!-- Data pribadi -->
+                                    <!-- Baris 2 -->
                                     <div class="row mb-3">
-                                        <div class="col-md-4">
-                                            <label for="no_hp" class="mb-2">Nomor HP</label>
-                                            <input class="form-control" id="no_hp" type="text" name="no_hp" required>
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="alamat">Alamat Lengkap Saat Ini</label>
+                                            <input class="form-control" id="alamat" type="text" name="alamat" required>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="tempat_lahir" class="mb-2">Tempat Lahir</label>
-                                            <input class="form-control" id="tempat_lahir" type="text" name="tempat_lahir">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="tanggal_lahir" class="mb-2">Tanggal Lahir</label>
-                                            <input class="form-control" id="tanggal_lahir" type="date" name="tanggal_lahir">
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="usaha">Usaha Saat Ini</label>
+                                            <input class="form-control" id="usaha" type="text" name="usaha" required>
                                         </div>
                                     </div>
 
-                                    <!-- Identitas -->
+                                    <!-- Baris 3 -->
                                     <div class="row mb-3">
-                                        <div class="col-md-4">
-                                            <label for="jenis_kelamin" class="mb-2">Jenis Kelamin</label>
-                                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
-                                                <option value="" disabled selected hidden>Pilih Jenis Kelamin</option>
-                                                <option value="laki-laki">Laki-laki</option>
-                                                <option value="perempuan">Perempuan</option>
-                                            </select>
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="agunan">Agunan</label>
+                                            <input class="form-control" id="agunan" type="text" name="agunan">
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="status_perkawinan" class="mb-2">Status Perkawinan</label>
-                                            <select class="form-control" id="status_perkawinan" name="status_perkawinan" required>
-                                                <option value="" disabled selected hidden>Pilih Status</option>
-                                                <option value="belum menikah">Belum Menikah</option>
-                                                <option value="menikah">Menikah</option>
-                                                <option value="cerai">Bercerai</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="pekerjaan" class="mb-2">Pekerjaan</label>
-                                            <input class="form-control" id="pekerjaan" type="text" name="pekerjaan">
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="taksasi">Perkiraan Taksasi</label>
+                                            <input class="form-control" id="taksasi" type="number" name="taksasi">
                                         </div>
                                     </div>
 
-                                    <!-- Kontak -->
+                                    <!-- Baris 4 -->
                                     <div class="row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="alamat" class="mb-2">Alamat Saat Ini</label>
-                                            <textarea class="form-control" id="alamat" name="alamat" rows="1" required></textarea>
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="plafond">Plafond Yang Diajukan</label>
+                                            <input class="form-control" id="plafond" type="number" name="plafond" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="tujuan">Tujuan Pinjaman</label>
+                                            <input class="form-control" id="tujuan" type="text" name="tujuan" required>
                                         </div>
                                     </div>
 
-                                    <!-- Password -->
-                                    <div class="row mb-3">
-                                        <div class="col-md-4">
-                                            <label for="password" class="mb-2">Buat Kata Sandi</label>
-                                            <input class="form-control" id="password" type="password" name="password" required>
+                                    <!-- Upload + Tombol dalam 1 baris -->
+                                    <div class="row mb-3 align-items-end">
+                                        <div class="col-md-6">
+                                            <label class="mb-2" for="dokumen">
+                                                Dokumen Pendukung PDF
+                                                <a href="https://drive.google.com/your-link-panduan" target="_blank" class="ms-2 text-primary fw-semibold" style="font-size: 0.9em;">
+                                                    Lihat Panduan
+                                                </a>
+                                            </label>
+                                            <input class="form-control" id="dokumen" type="file" name="dokumen" accept=".pdf" required>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="password_confirmation" class="mb-2">Konfirmasi Kata Sandi</label>
-                                            <input class="form-control" id="password_confirmation" type="password" name="password_confirmation" required>
-                                            <small id="passwordHelp" class="text-danger d-none">Kata sandi tidak cocok</small>
-                                            <small id="passwordSuccess" class="text-success d-none">Kata sandi cocok</small>
+                                        <div class="col-md-6">
+                                            <label class="mb-2 d-block">&nbsp;</label>
+                                            <button class="btn btn-primary fw-semibold w-100" type="submit">Kirim Permohonan</button>
                                         </div>
-                                           <div class="col-md-4 d-flex align-items-end">
-                                            <button class="btn btn-primary fw-semibold w-100" type="submit">Daftar</button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Tombol -->
-                                    <div class="row mb-3">
-                                     
                                     </div>
                                 </form>
 
-                                <div class="mt-3 d-none alert alert-success" id="successMessage">Registrasi berhasil!</div>
-                                <div class="mt-3 d-none alert alert-danger" id="errorMessage">Registrasi gagal. Silakan coba lagi.</div>
+                                <div class="mt-3 d-none alert alert-success" id="successMessage">Permohonan berhasil dikirim!</div>
+                                <div class="mt-3 d-none alert alert-danger" id="errorMessage">Pengiriman gagal. Silakan coba lagi.</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- End Formulir Register-->
-
-            <!-- Script cek password -->
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const password = document.getElementById('password');
-                    const confirm = document.getElementById('password_confirmation');
-                    const help = document.getElementById('passwordHelp');
-                    const success = document.getElementById('passwordSuccess');
-
-                    function checkPassword() {
-                        if (confirm.value.length > 0) {
-                            if (password.value === confirm.value) {
-                                help.classList.add('d-none');
-                                success.classList.remove('d-none');
-                            } else {
-                                success.classList.add('d-none');
-                                help.classList.remove('d-none');
-                            }
-                        } else {
-                            help.classList.add('d-none');
-                            success.classList.add('d-none');
-                        }
-                    }
-
-                    password.addEventListener('input', checkPassword);
-                    confirm.addEventListener('input', checkPassword);
-                });
-            </script>
+            <!-- End Formulir-->
 
         </main>
     </div>

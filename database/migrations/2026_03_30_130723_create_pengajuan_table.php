@@ -14,16 +14,36 @@ return new class extends Migration
         Schema::create('pengajuan', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('ao_id')->constrained('users')->cascadeOnDelete();
+            // user yang buat pengajuan
+            $table->foreignId('user_id')
+                  ->constrained('users')
+                  ->cascadeOnDelete()
+                  ->index()
+                  ->name('pengajuan_user_fk');
 
-            $table->text('alamat_sekarang');
-            $table->text('agunan');
+            // user marketing yang mereferensikan
+            $table->foreignId('referral_id')
+                  ->constrained('users')
+                  ->cascadeOnDelete()
+                  ->index()
+                  ->name('pengajuan_referral_fk');
+
+            // user pimpinan yang menyetujui
+            $table->foreignId('approve_id')
+                  ->constrained('users')
+                  ->cascadeOnDelete()
+                  ->index()
+                  ->name('pengajuan_approve_fk');
+
+            $table->string('kode_pengajuan')->unique()->index(); // misalnya P100, P101
+
+            $table->string('nik', 20)->unique()->index();
+            $table->string('nama')->index();
+            $table->string('alamat', 255)->index();
             $table->string('profesi', 100);
-
-            $table->decimal('jumlah_plafon', 15, 2);
+            $table->text('agunan');
             $table->decimal('taksasi', 15, 2);
-
+            $table->decimal('jumlah_plafon', 15, 2);
             $table->text('tujuan_pengajuan');
             $table->string('dokumen_pendukung');
 
@@ -35,9 +55,7 @@ return new class extends Migration
                 'disetujui',
                 'ditolak',
                 'dicairkan'
-            ])->default('menunggu');
-
-            $table->date('tanggal_pengajuan');
+            ])->default('menunggu')->index();
 
             $table->timestamps();
         });

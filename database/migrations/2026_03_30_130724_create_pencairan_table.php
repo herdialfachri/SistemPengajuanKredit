@@ -14,12 +14,25 @@ return new class extends Migration
         Schema::create('pencairan', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('pengajuan_id')->constrained('pengajuan')->cascadeOnDelete();
-            $table->foreignId('admin_id')->constrained('users')->cascadeOnDelete();
+            // pengajuan yang diajukan
+            $table->foreignId('pengajuan_id')
+                  ->constrained('pengajuan')
+                  ->cascadeOnDelete()
+                  ->index()
+                  ->name('pencairan_pengajuan_fk');
 
-            $table->decimal('jumlah_cair', 15, 2);
-            $table->date('tanggal_cair');
+            // admin yang melakukan pencairan
+            $table->foreignId('admin_id')
+                  ->constrained('users')
+                  ->cascadeOnDelete()
+                  ->index()
+                  ->name('pencairan_admin_fk');
+
+            $table->decimal('jumlah_cair', 15, 2)->index();
+            $table->date('tanggal_cair')->index();
             $table->text('catatan')->nullable();
+            $table->string('dokumentasi'); // misalnya foto admin/marketing dengan nasabah
+            $table->string('dokumen_pendukung'); // misalnya bukti transfer
 
             $table->timestamps();
         });

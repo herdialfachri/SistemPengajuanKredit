@@ -12,6 +12,10 @@ Route::get('/coba-pengajuan', function() {
     return view('coba_pengajuan');
 });
 
+Route::get('/formulir-pengajuan', function() {
+    return view('formulir');
+})->name('formulir-pengajuan');
+
 Route::get('/login', function () {
     return view('auth.login');  
 })->name('login');

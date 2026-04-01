@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Pengajuan extends Model
 {
@@ -11,40 +11,42 @@ class Pengajuan extends Model
 
     protected $fillable = [
         'user_id',
-        'ao_id',
-        'alamat_sekarang',
-        'agunan',
+        'referral_id',
+        'approve_id',
+        'kode_pengajuan',
+        'nik',
+        'nama',
+        'alamat',
         'profesi',
-        'jumlah_plafon',
+        'agunan',
         'taksasi',
+        'jumlah_plafon',
         'tujuan_pengajuan',
         'dokumen_pendukung',
-        'status',
-        'tanggal_pengajuan'
+        'status'
     ];
 
-    public function user()
+    // Relasi ke nasabah (user yang mengajukan)
+    public function nasabah()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function ao()
+    // Relasi ke marketing (referral)
+    public function marketing()
     {
-        return $this->belongsTo(User::class, 'ao_id');
+        return $this->belongsTo(User::class, 'referral_id', 'id');
     }
 
-    public function logs()
+    // Relasi ke pimpinan (approve)
+    public function pimpinan()
     {
-        return $this->hasMany(PengajuanLog::class);
+        return $this->belongsTo(User::class, 'approve_id', 'id');
     }
 
+    // Relasi ke pencairan
     public function pencairan()
     {
-        return $this->hasOne(Pencairan::class);
-    }
-
-    public function penyetujuan()
-    {
-        return $this->hasOne(Penyetujuan::class);
+        return $this->hasOne(Pencairan::class, 'pengajuan_id', 'id');
     }
 }

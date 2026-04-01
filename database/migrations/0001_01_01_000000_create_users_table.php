@@ -15,39 +15,30 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
 
-            // basic
-            $table->string('name');
+            //identitas 1
+            $table->string('nik', 20)->unique()->index();
+            $table->string('nama')->index();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+
+            //identitas 2
+            $table->string('no_hp', 20);
+            $table->string('tempat_lahir')->index();
+            $table->date('tanggal_lahir');
+
+            //identitas 3
+            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
+            $table->string('status_perkawinan');
+            $table->string('pekerjaan');
+
+            //identitas 4
+            $table->string('alamat', 255)->index();
+
+            //kata sandi
             $table->string('password');
 
-            // role system
-            $table->enum('role', ['nasabah', 'ao', 'pimpinan', 'admin'])->default('nasabah');
-
-            // identitas
-            $table->string('nik', 20)->unique(); // KTP
-            $table->string('no_kk', 20)->nullable();
-            $table->string('npwp', 25)->nullable();
-
-            // kontak
-            $table->string('no_hp', 20);
-            $table->text('alamat');
-
-            // data pribadi
-            $table->string('tempat_lahir')->nullable();
-            $table->date('tanggal_lahir')->nullable();
-            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan'])->nullable();
-            $table->string('status_perkawinan')->nullable();
-
-            // pekerjaan
-            $table->string('pekerjaan')->nullable();
-            $table->decimal('penghasilan', 15, 2)->nullable();
-
-            // foto & dokumen
-            $table->string('foto_ktp')->nullable();
-            $table->string('foto_diri')->nullable();
-
-            $table->rememberToken();
+            //sistem peran atau role
+            $table->enum('role', ['nasabah', 'marketing', 'pimpinan', 'admin'])->default('nasabah');
             $table->timestamps();
         });
 
