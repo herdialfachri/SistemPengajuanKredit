@@ -165,37 +165,53 @@ License: https://freebootstrap.net/license
             <!-- ======= Formulir Register =======-->
             <section class="hero__v6 section" id="register">
                 <div class="container">
-                    <!-- Heading Formulir -->
                     <div class="row mb-5">
                         <div class="col-md-6 mx-auto text-center">
-                            <h2 class="mb-3" data-aos="fade-up" data-aos-delay="100">
-                                Formulir Registrasi Nasabah
-                            </h2>
-                            <p data-aos="fade-up" data-aos-delay="200">
-                                Silakan isi data diri Anda dengan lengkap dan benar
-                            </p>
+                            <h2 class="mb-3">Formulir Registrasi Nasabah</h2>
+                            <p>Silakan isi data diri Anda dengan lengkap dan benar</p>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="form-wrapper" data-aos="fade-up" data-aos-delay="300">
-                                <form id="registerForm" action="#" method="POST">
+                            <div class="form-wrapper">
+
+                                @if(session('success'))
+                                <div class="mt-3 alert alert-success text-center">
+                                    {{ session('success') }}
+                                    <br>
+                                    <a href="{{ route('login') }}" class="fw-bold text-decoration-success ms-2">
+                                        Klik di sini untuk login
+                                    </a>
+                                </div>
+                                @endif
+
+                                @if($errors->any())
+                                <div class="mt-3 alert alert-danger text-center">
+                                    <ul class="mb-0 list-unstyled">
+                                        @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+
+                                <form id="registerForm" action="{{ route('register.post') }}" method="POST">
                                     @csrf
 
-                                    <!-- Basic -->
+                                    <!-- Identitas dasar -->
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <label for="nik" class="mb-2">NIK (Sesuai KTP)</label>
-                                            <input class="form-control" id="nik" type="text" name="nik" required>
+                                            <input class="form-control" id="nik" type="text" name="nik" value="{{ old('nik') }}" required>
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="name" class="mb-2">Nama (Sesuai KTP)</label>
-                                            <input class="form-control" id="name" type="text" name="name" required>
+                                            <label for="nama" class="mb-2">Nama (Sesuai KTP)</label>
+                                            <input class="form-control" id="nama" type="text" name="nama" value="{{ old('nama') }}" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="email" class="mb-2">Email</label>
-                                            <input class="form-control" id="email" type="email" name="email" required>
+                                            <input class="form-control" id="email" type="email" name="email" value="{{ old('email') }}" required>
                                         </div>
                                     </div>
 
@@ -203,48 +219,48 @@ License: https://freebootstrap.net/license
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <label for="no_hp" class="mb-2">Nomor HP</label>
-                                            <input class="form-control" id="no_hp" type="text" name="no_hp" required>
+                                            <input class="form-control" id="no_hp" type="text" name="no_hp" value="{{ old('no_hp') }}" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="tempat_lahir" class="mb-2">Tempat Lahir</label>
-                                            <input class="form-control" id="tempat_lahir" type="text" name="tempat_lahir">
+                                            <input class="form-control" id="tempat_lahir" type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="tanggal_lahir" class="mb-2">Tanggal Lahir</label>
-                                            <input class="form-control" id="tanggal_lahir" type="date" name="tanggal_lahir">
+                                            <input class="form-control" id="tanggal_lahir" type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                                         </div>
                                     </div>
 
-                                    <!-- Identitas -->
+                                    <!-- Identitas tambahan -->
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <label for="jenis_kelamin" class="mb-2">Jenis Kelamin</label>
                                             <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
-                                                <option value="" disabled selected hidden>Pilih Jenis Kelamin</option>
-                                                <option value="laki-laki">Laki-laki</option>
-                                                <option value="perempuan">Perempuan</option>
+                                                <option value="" disabled hidden>Pilih Jenis Kelamin</option>
+                                                <option value="laki-laki" {{ old('jenis_kelamin') == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                                <option value="perempuan" {{ old('jenis_kelamin') == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="status_perkawinan" class="mb-2">Status Perkawinan</label>
                                             <select class="form-control" id="status_perkawinan" name="status_perkawinan" required>
-                                                <option value="" disabled selected hidden>Pilih Status</option>
-                                                <option value="belum menikah">Belum Menikah</option>
-                                                <option value="menikah">Menikah</option>
-                                                <option value="cerai">Bercerai</option>
+                                                <option value="" disabled hidden>Pilih Status</option>
+                                                <option value="belum menikah" {{ old('status_perkawinan') == 'belum menikah' ? 'selected' : '' }}>Belum Menikah</option>
+                                                <option value="menikah" {{ old('status_perkawinan') == 'menikah' ? 'selected' : '' }}>Menikah</option>
+                                                <option value="cerai" {{ old('status_perkawinan') == 'cerai' ? 'selected' : '' }}>Bercerai</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="pekerjaan" class="mb-2">Pekerjaan</label>
-                                            <input class="form-control" id="pekerjaan" type="text" name="pekerjaan">
+                                            <input class="form-control" id="pekerjaan" type="text" name="pekerjaan" value="{{ old('pekerjaan') }}" required>
                                         </div>
                                     </div>
 
-                                    <!-- Kontak -->
+                                    <!-- Alamat -->
                                     <div class="row mb-3">
                                         <div class="col-md-12">
                                             <label for="alamat" class="mb-2">Alamat Saat Ini</label>
-                                            <textarea class="form-control" id="alamat" name="alamat" rows="1" required></textarea>
+                                            <textarea class="form-control" id="alamat" name="alamat" rows="1" required>{{ old('alamat') }}</textarea>
                                         </div>
                                     </div>
 
@@ -257,22 +273,12 @@ License: https://freebootstrap.net/license
                                         <div class="col-md-4">
                                             <label for="password_confirmation" class="mb-2">Konfirmasi Kata Sandi</label>
                                             <input class="form-control" id="password_confirmation" type="password" name="password_confirmation" required>
-                                            <small id="passwordHelp" class="text-danger d-none">Kata sandi tidak cocok</small>
-                                            <small id="passwordSuccess" class="text-success d-none">Kata sandi cocok</small>
                                         </div>
-                                           <div class="col-md-4 d-flex align-items-end">
+                                        <div class="col-md-4 d-flex align-items-end">
                                             <button class="btn btn-primary fw-semibold w-100" type="submit">Daftar</button>
                                         </div>
                                     </div>
-
-                                    <!-- Tombol -->
-                                    <div class="row mb-3">
-                                     
-                                    </div>
                                 </form>
-
-                                <div class="mt-3 d-none alert alert-success" id="successMessage">Registrasi berhasil!</div>
-                                <div class="mt-3 d-none alert alert-danger" id="errorMessage">Registrasi gagal. Silakan coba lagi.</div>
                             </div>
                         </div>
                     </div>
