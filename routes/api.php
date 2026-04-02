@@ -2,39 +2,36 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\PengajuanController;
-use App\Http\Controllers\PencairanController;
+use App\Http\Controllers\Api\PengajuanController;
+use App\Http\Controllers\Api\PencairanController;
 
 // ================= PUBLIC =================
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 // ================= PROTECTED (SANCTUM) =================
 Route::middleware('auth:sanctum')->group(function () {
 
-    // Auth
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']);
+    // ---------- AUTH ----------
+    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::get('/me', [AuthController::class, 'me'])->name('auth.me');
+    Route::get('/get-users', [AuthController::class, 'getUsers'])->name('auth.getUsers');
 
-    // Pengajuan (CRUD)
-    Route::get('/pengajuan', [PengajuanController::class, 'index']);          // GET all
-    Route::post('/pengajuan', [PengajuanController::class, 'store']);         // CREATE
-    Route::get('/pengajuan/{pengajuan}', [PengajuanController::class, 'show']);   // READ single
-    Route::put('/pengajuan/{pengajuan}', [PengajuanController::class, 'update']); // UPDATE
-    Route::delete('/pengajuan/{pengajuan}', [PengajuanController::class, 'destroy']); // DELETE
+    // ---------- PENGAJUAN ----------
+    Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
+        Route::get('/', [PengajuanController::class, 'index'])->name('index');       // GET all
+        Route::post('/', [PengajuanController::class, 'store'])->name('store');      // CREATE
+        Route::get('/{pengajuan}', [PengajuanController::class, 'show'])->name('show'); // READ single
+        Route::put('/{pengajuan}', [PengajuanController::class, 'update'])->name('update'); // UPDATE
+        Route::delete('/{pengajuan}', [PengajuanController::class, 'destroy'])->name('destroy'); // DELETE
+    });
 
-    // GET semua pencairan
-    Route::get('/pencairan', [PencairanController::class, 'index']);
-
-    // GET detail pencairan
-    Route::get('/pencairan/{id}', [PencairanController::class, 'show']);
-
-    // POST pencairan baru (pengajuan_id dari URL)
-    Route::post('/pencairan/{pengajuan_id}', [PencairanController::class, 'store']);
-
-    // PUT update pencairan
-    Route::put('/pencairan/{id}', [PencairanController::class, 'update']);
-
-    // DELETE hapus pencairan
-    Route::delete('/pencairan/{id}', [PencairanController::class, 'destroy']);
+    // ---------- PENCAIRAN ----------
+    Route::prefix('pencairan')->name('pencairan.')->group(function () {
+        Route::get('/', [PencairanController::class, 'index'])->name('index');       // GET all
+        Route::get('/{id}', [PencairanController::class, 'show'])->name('show');     // READ single
+        Route::post('/{pengajuan_id}', [PencairanController::class, 'store'])->name('store'); // CREATE
+        Route::put('/{id}', [PencairanController::class, 'update'])->name('update'); // UPDATE
+        Route::delete('/{id}', [PencairanController::class, 'destroy'])->name('destroy'); // DELETE
+    });
 });

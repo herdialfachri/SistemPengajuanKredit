@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Pencairan;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class PencairanController extends Controller
 
         return response()->json([
             'message' => 'Data pencairan',
-            'data' => $data
+            'data'    => $data,
         ]);
     }
 
@@ -23,29 +24,29 @@ class PencairanController extends Controller
     public function store(Request $request, $pengajuan_id)
     {
         $request->validate([
-            'jumlah_cair' => 'required|numeric',
-            'tanggal_cair' => 'required|date',
-            'dokumentasi' => 'required|string',
+            'jumlah_cair'       => 'required|numeric',
+            'tanggal_cair'      => 'required|date',
+            'dokumentasi'       => 'required|string',
             'dokumen_pendukung' => 'required|string',
-            'catatan' => 'nullable|string',
+            'catatan'           => 'nullable|string',
         ]);
 
         $pengajuan = Pengajuan::findOrFail($pengajuan_id);
 
         $pencairan = Pencairan::create([
-            'pengajuan_id' => $pengajuan->id,
-            'admin_id' => $request->user()->id, // otomatis ambil admin yg login
-            'jumlah_cair' => $request->jumlah_cair,
-            'tanggal_cair' => $request->tanggal_cair,
-            'catatan' => $request->catatan,
-            'dokumentasi' => $request->dokumentasi,
+            'pengajuan_id'      => $pengajuan->id,
+            'admin_id'          => $request->user()->id, // otomatis ambil admin yg login
+            'jumlah_cair'       => $request->jumlah_cair,
+            'tanggal_cair'      => $request->tanggal_cair,
+            'catatan'           => $request->catatan,
+            'dokumentasi'       => $request->dokumentasi,
             'dokumen_pendukung' => $request->dokumen_pendukung,
-            'status_cair' => true
+            'status_cair'       => true,
         ]);
 
         return response()->json([
             'message' => 'Pencairan berhasil dibuat',
-            'data' => $pencairan
+            'data'    => $pencairan,
         ], 201);
     }
 
@@ -54,14 +55,14 @@ class PencairanController extends Controller
     {
         $data = Pencairan::find($id);
 
-        if (!$data) {
+        if (! $data) {
             return response()->json([
-                'message' => 'Data tidak ditemukan'
+                'message' => 'Data tidak ditemukan',
             ], 404);
         }
 
         return response()->json([
-            'data' => $data
+            'data' => $data,
         ]);
     }
 
@@ -70,9 +71,9 @@ class PencairanController extends Controller
     {
         $pencairan = Pencairan::find($id);
 
-        if (!$pencairan) {
+        if (! $pencairan) {
             return response()->json([
-                'message' => 'Data tidak ditemukan'
+                'message' => 'Data tidak ditemukan',
             ], 404);
         }
 
@@ -80,7 +81,7 @@ class PencairanController extends Controller
 
         return response()->json([
             'message' => 'Pencairan berhasil diupdate',
-            'data' => $pencairan
+            'data'    => $pencairan,
         ]);
     }
 
@@ -89,16 +90,16 @@ class PencairanController extends Controller
     {
         $pencairan = Pencairan::find($id);
 
-        if (!$pencairan) {
+        if (! $pencairan) {
             return response()->json([
-                'message' => 'Data tidak ditemukan'
+                'message' => 'Data tidak ditemukan',
             ], 404);
         }
 
         $pencairan->delete();
 
         return response()->json([
-            'message' => 'Pencairan berhasil dihapus'
+            'message' => 'Pencairan berhasil dihapus',
         ]);
     }
 }
