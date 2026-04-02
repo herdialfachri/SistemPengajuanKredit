@@ -16,14 +16,14 @@ return new class extends Migration
             $table->id();
 
             //identitas 1
-            $table->string('nik', 20)->unique()->index();
-            $table->string('nama')->index();
+            $table->string('nik', 20)->unique();
+            $table->string('nama');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
 
             //identitas 2
             $table->string('no_hp', 20);
-            $table->string('tempat_lahir')->index();
+            $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
 
             //identitas 3
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('pekerjaan');
 
             //identitas 4
-            $table->string('alamat', 255)->index();
+            $table->string('alamat', 255);
 
             //kata sandi
             $table->string('password');
@@ -45,11 +45,11 @@ return new class extends Migration
         // Tabel sessions (buat session database)
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->foreignId('user_id')->nullable();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->text('payload');
-            $table->integer('last_activity')->index();
+            $table->integer('last_activity');
         });
     }
 

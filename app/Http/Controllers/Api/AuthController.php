@@ -42,16 +42,10 @@ class AuthController extends Controller
             'role' => 'nasabah'
         ]);
 
-        // ❌ TIDAK AUTO LOGIN
-
-        if ($request->expectsJson()) {
-            return response()->json([
-                'message' => 'Register berhasil',
-                'user' => $user
-            ]);
-        }
-
-        return redirect()->route('login')->with('success', 'Register berhasil, silakan login');
+        return response()->json([
+            'message' => 'Register berhasil',
+            'user' => $user
+        ]);
     }
 
     // ================= LOGIN =================
@@ -62,19 +56,6 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        // ✅ LOGIN WEB (SESSION)
-        if (! $request->expectsJson()) {
-
-            if (!Auth::attempt($request->only('email', 'password'))) {
-                return back()->with('error', 'Email atau password salah');
-            }
-
-            $request->session()->regenerate();
-
-            return redirect()->route('index')->with('success', 'Login berhasil');
-        }
-
-        // ✅ LOGIN API (TOKEN)
         $user = User::where('email', $request->email)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
@@ -83,7 +64,6 @@ class AuthController extends Controller
             ], 401);
         }
 
-        // hapus token lama (optional biar ga numpuk)
         $user->tokens()->delete();
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -98,34 +78,20 @@ class AuthController extends Controller
     // ================= LOGOUT =================
     public function logout(Request $request)
     {
-        // ================= API (TOKEN) =================
-        if ($request->expectsJson()) {
+        $user = $request->user();
 
-            $user = $request->user();
-
-            if ($user && $user->currentAccessToken()) {
-                $user->currentAccessToken()->delete(); // hapus token aktif saja
-            }
-
-            return response()->json([
-                'message' => 'Logout API berhasil'
-            ]);
+        if ($user && $user->currentAccessToken()) {
+            $user->currentAccessToken()->delete();
         }
 
-        // ================= WEB (SESSION) =================
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect()->route('login')->with('success', 'Logout berhasil');
+        return response()->json([
+            'message' => 'Logout berhasil'
+        ]);
     }
-
-
 
     // ================= GET USER =================
-    public function me(Request $request)
-    {
-        return response()->json($request->user());
-    }
+    // public function me(Request $request)
+    // {
+    //     return response()->json($request->user());
+    // }
 }

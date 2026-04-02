@@ -17,22 +17,19 @@ return new class extends Migration
             // pengajuan yang diajukan
             $table->foreignId('pengajuan_id')
                   ->constrained('pengajuan')
-                  ->cascadeOnDelete()
-                  ->index()
-                  ->name('pencairan_pengajuan_fk');
+                  ->cascadeOnDelete();
 
             // admin yang melakukan pencairan
             $table->foreignId('admin_id')
                   ->constrained('users')
-                  ->cascadeOnDelete()
-                  ->index()
-                  ->name('pencairan_admin_fk');
+                  ->cascadeOnDelete();
 
-            $table->decimal('jumlah_cair', 15, 2)->index();
-            $table->date('tanggal_cair')->index();
+            $table->decimal('jumlah_cair', 15, 2);
+            $table->date('tanggal_cair');
             $table->text('catatan')->nullable();
             $table->string('dokumentasi'); // misalnya foto admin/marketing dengan nasabah
             $table->string('dokumen_pendukung'); // misalnya bukti transfer
+            $table->enum('status', ['selesai'])->default('selesai'); // status pencairan, misalnya selesai
 
             $table->timestamps();
         });

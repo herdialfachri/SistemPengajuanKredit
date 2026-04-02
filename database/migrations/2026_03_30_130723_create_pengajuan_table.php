@@ -16,33 +16,27 @@ return new class extends Migration
 
             // user yang buat pengajuan
             $table->foreignId('user_id')
-                  ->constrained('users')
-                  ->cascadeOnDelete()
-                  ->index()
-                  ->name('pengajuan_user_fk');
+                ->constrained('users')
+                ->cascadeOnDelete();
 
             // user marketing yang mereferensikan
             $table->foreignId('referral_id')
-                  ->constrained('users')
-                  ->cascadeOnDelete()
-                  ->index()
-                  ->name('pengajuan_referral_fk');
+                ->constrained('users')
+                ->cascadeOnDelete();
 
             // user pimpinan yang menyetujui
             $table->foreignId('approve_id')
-                  ->constrained('users')
-                  ->cascadeOnDelete()
-                  ->index()
-                  ->name('pengajuan_approve_fk');
+                ->constrained('users')
+                ->cascadeOnDelete();
 
-            $table->string('kode_pengajuan')->unique()->index(); // misalnya P100, P101
+            $table->string('kode_pengajuan')->unique(); // misalnya P100, P101
 
-            $table->string('nik', 20)->unique()->index();
-            $table->string('nama')->index();
-            $table->string('alamat', 255)->index();
+            $table->string('nik', 20)->unique();
+            $table->string('nama');
+            $table->string('alamat', 255);
             $table->string('profesi', 100);
             $table->text('agunan');
-            $table->decimal('taksasi', 15, 2);
+            $table->decimal('taksasi', 15, 2)->nullable();
             $table->decimal('jumlah_plafon', 15, 2);
             $table->text('tujuan_pengajuan');
             $table->string('dokumen_pendukung');
@@ -55,7 +49,7 @@ return new class extends Migration
                 'disetujui',
                 'ditolak',
                 'dicairkan'
-            ])->default('menunggu')->index();
+            ])->default('menunggu');
 
             $table->timestamps();
         });

@@ -9,6 +9,8 @@ class Pencairan extends Model
 {
     use HasFactory;
 
+    protected $table = 'pencairan';
+
     protected $fillable = [
         'pengajuan_id',
         'admin_id',
@@ -16,18 +18,17 @@ class Pencairan extends Model
         'tanggal_cair',
         'catatan',
         'dokumentasi',
-        'dokumen_pendukung'
+        'dokumen_pendukung',
+        'status'
     ];
 
-    // Relasi ke pengajuan
     public function pengajuan()
     {
-        return $this->belongsTo(Pengajuan::class, 'pengajuan_id', 'id');
+        return $this->belongsTo(Pengajuan::class, 'pengajuan_id');
     }
 
-    // Relasi ke admin (user)
     public function admin()
     {
-        return $this->belongsTo(User::class, 'admin_id', 'id');
+        return $this->belongsTo(User::class, 'admin_id');
     }
 }

@@ -12,6 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Panggil seeder UsersTableSeeder
-        $this->call(UsersTableSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

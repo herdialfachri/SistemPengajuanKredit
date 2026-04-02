@@ -2,71 +2,116 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Pengajuan;
-use App\Models\PengajuanLog;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PengajuanController extends Controller
 {
+    // ================= GET ALL =================
     public function index(Request $request)
     {
-        // Ambil user dari token Bearer
-        $user = $request->user(); // <-- ini otomatis pake Sanctum
+        // Ambil semua data pengajuan dari tabel pengajuans
+        $data = Pengajuan::latest()->get();
 
-        $pengajuans = Pengajuan::where('user_id', $user->id)->latest()->get();
-        return response()->json($pengajuans);
+        return response()->json([
+            'message' => 'Data pengajuan',
+            'data' => $data
+        ]);
     }
 
+    public function show($id)
+    {
+        // Ambil satu data pengajuan berdasarkan ID
+        $data = Pengajuan::find($id);
+
+        if (!$data) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    // ================= STORE =================
     public function store(Request $request)
     {
-        $user = $request->user(); // Ambil user dari API token
-
         $request->validate([
-            'alamat_sekarang' => 'required',
+            'nik' => 'required|unique:pengajuan',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'profesi' => 'required',
             'agunan' => 'required',
-            'profesi' => 'required|max:100',
-            'jumlah_plafon' => 'required|numeric',
             'taksasi' => 'required|numeric',
+            'jumlah_plafon' => 'required|numeric',
             'tujuan_pengajuan' => 'required',
-            'dokumen_pendukung' => 'required|file|mimes:pdf,jpg,png'
+            'dokumen_pendukung' => 'required',
         ]);
-
-        $fileName = $request->file('dokumen_pendukung')->store('dokumen', 'public');
 
         $pengajuan = Pengajuan::create([
-            'user_id' => $user->id,  // <-- pake id dari token
-            'ao_id' => 1, // nanti bisa diatur AO tertentu
-            'alamat_sekarang' => $request->alamat_sekarang,
-            'agunan' => $request->agunan,
-            'profesi' => $request->profesi,
-            'jumlah_plafon' => $request->jumlah_plafon,
-            'taksasi' => $request->taksasi,
-            'tujuan_pengajuan' => $request->tujuan_pengajuan,
-            'dokumen_pendukung' => $fileName,
-            'tanggal_pengajuan' => now(),
-        ]);
+            'user_id' => $request->user()->id,
+            'referral_id' => $request->referral_id,
+            'approve_id' => $request->approve_id,
 
-        // buat log awal
-        PengajuanLog::create([
-            'pengajuan_id' => $pengajuan->id,
-            'status' => 'menunggu',
-            'keterangan' => 'Pengajuan dibuat oleh user'
+            'kode_pengajuan' => 'P' . rand(1000, 9999),
+
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'profesi' => $request->profesi,
+            'agunan' => $request->agunan,
+            'taksasi' => $request->taksasi,
+            'jumlah_plafon' => $request->jumlah_plafon,
+            'tujuan_pengajuan' => $request->tujuan_pengajuan,
+            'dokumen_pendukung' => $request->dokumen_pendukung,
+
+            'status' => 'menunggu'
         ]);
 
         return response()->json([
-            'message' => 'Pengajuan berhasil dibuat!',
-            'pengajuan' => $pengajuan
+            'message' => 'Pengajuan berhasil dibuat',
+            'data' => $pengajuan
         ], 201);
     }
 
-    public function show(Request $request, Pengajuan $pengajuan)
+    // ================= UPDATE =================
+    public function update(Request $request, $id)
     {
-        $user = $request->user();
+        $pengajuan = Pengajuan::find($id);
 
-        if ($pengajuan->user_id !== $user->id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+        if (!$pengajuan) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
         }
 
-        return response()->json($pengajuan);
+        $pengajuan->update($request->all());
+
+        return response()->json([
+            'message' => 'Pengajuan berhasil diupdate',
+            'data' => $pengajuan
+        ]);
+    }
+
+    // ================= DELETE =================
+    public function destroy($id)
+    {
+        $pengajuan = Pengajuan::find($id);
+
+        if (!$pengajuan) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
+        $pengajuan->delete();
+
+        return response()->json([
+            'message' => 'Pengajuan berhasil dihapus'
+        ]);
     }
 }

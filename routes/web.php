@@ -42,3 +42,10 @@ Route::middleware('auth')->group(function () {
         return view('coba_pengajuan');
     });
 });
+
+
+use App\Http\Controllers\Web\AuthWebController;
+
+Route::get('/login', [AuthWebController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [AuthWebController::class, 'login'])->name('login');
+Route::post('/logout', [AuthWebController::class, 'logout'])->name('logout');

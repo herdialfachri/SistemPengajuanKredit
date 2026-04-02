@@ -9,6 +9,8 @@ class Pengajuan extends Model
 {
     use HasFactory;
 
+protected $table = 'pengajuan';
+
     protected $fillable = [
         'user_id',
         'referral_id',
@@ -26,27 +28,28 @@ class Pengajuan extends Model
         'status'
     ];
 
+
     // Relasi ke nasabah (user yang mengajukan)
     public function nasabah()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // Relasi ke marketing (referral)
     public function marketing()
     {
-        return $this->belongsTo(User::class, 'referral_id', 'id');
+        return $this->belongsTo(User::class, 'referral_id');
     }
 
     // Relasi ke pimpinan (approve)
     public function pimpinan()
     {
-        return $this->belongsTo(User::class, 'approve_id', 'id');
+        return $this->belongsTo(User::class, 'approve_id');
     }
 
     // Relasi ke pencairan
     public function pencairan()
     {
-        return $this->hasOne(Pencairan::class, 'pengajuan_id', 'id');
+        return $this->hasOne(Pencairan::class, 'pengajuan_id');
     }
 }

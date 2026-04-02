@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
-class UsersTableSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
                 'status_perkawinan' => 'menikah',
                 'pekerjaan' => 'Pimpinan',
                 'alamat' => 'Jl. Raya Sukabumi No.1',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'pimpinan',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -46,7 +46,7 @@ class UsersTableSeeder extends Seeder
                 'status_perkawinan' => 'menikah',
                 'pekerjaan' => 'Admin',
                 'alamat' => 'Jl. Merdeka Bandung',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -65,18 +65,18 @@ class UsersTableSeeder extends Seeder
                 'status_perkawinan' => 'belum menikah',
                 'pekerjaan' => 'Marketing',
                 'alamat' => 'Jl. Sudirman Jakarta',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'marketing',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
-            // Nasabah (contoh user biasa)
+            // Nasabah
             [
                 'nik' => '3201010000000004',
                 'nama' => 'Ibu Nasabah',
                 'email' => 'nasabah@example.com',
-                'email_verified_at' => null, // nullable
+                'email_verified_at' => null,
                 'no_hp' => '084444444444',
                 'tempat_lahir' => 'Bogor',
                 'tanggal_lahir' => '2000-04-04',
@@ -84,7 +84,7 @@ class UsersTableSeeder extends Seeder
                 'status_perkawinan' => 'belum menikah',
                 'pekerjaan' => 'Karyawan',
                 'alamat' => 'Jl. Pajajaran Bogor',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'nasabah',
                 'created_at' => now(),
                 'updated_at' => now(),
