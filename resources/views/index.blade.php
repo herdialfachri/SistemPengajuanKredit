@@ -132,7 +132,7 @@ License: https://freebootstrap.net/license
 
                 <div class="header-social d-flex align-items-center gap-1">
                     @guest
-                    <a class="btn btn-primary py-2" href="{{ route('register') }}">Daftar</a>
+                    <a class="btn btn-primary py-2" href="#">Daftar</a>
                     @endguest
 
                     @auth
@@ -193,7 +193,7 @@ License: https://freebootstrap.net/license
                                     </p>
 
                                     <div class="cta d-flex gap-2 mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="300">
-                                        <a class="btn" href="{{ route('formulir-pengajuan') }}">Ajukan Pinjaman</a>
+                                        <a class="btn" href="{{ route('dashboard') }}">Ajukan Pinjaman</a>
                                         <a class="btn btn-white-outline" href="#how-it-works">
                                             Pelajari Lebih Lanjut
                                             <svg class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
