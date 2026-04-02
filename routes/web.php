@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
+// Register
+Route::get('/register', [AuthWebController::class, 'showRegisterForm'])->name('register.form');
+Route::post('/register', [AuthWebController::class, 'register'])->name('register');
+
 // Login & Logout
 Route::get('/login', [AuthWebController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthWebController::class, 'login'])->name('login');
