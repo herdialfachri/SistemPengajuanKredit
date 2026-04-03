@@ -67,7 +67,7 @@ class AuthWebController extends Controller
     public function dashboard()
     {
         if (! session('token')) {
-            return redirect()->route('login.form')->withErrors(['login' => 'Silakan login dulu']);
+            return redirect()->route('login.form')->withErrors(['login' => 'Masuk untuk dapat mengakses dashboard!']);
         }
 
         return view('dashboard', [
