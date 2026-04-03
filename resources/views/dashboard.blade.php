@@ -70,7 +70,7 @@
                                 <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
                             </div>
                             <div class="is-user-name">
-                                <span>{{ session('user')['name'] ?? 'Guest' }}</span>
+                                <span>{{ session('user')['nama'] ?? 'Guest' }}</span>
                             </div>
                             <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
                         </a>
