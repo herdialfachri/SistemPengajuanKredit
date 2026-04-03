@@ -8,6 +8,18 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
+Route::get('/pengajuan', function () {
+    return view('nasabah.pengajuan');
+})->name('pengajuan');
+
+Route::get('/data-pengajuan', function () {
+    return view('nasabah.pengajuan_data');
+})->name('data.pengajuan');
+
+Route::get('/profile', function () {
+    return view('nasabah.profile');
+})->name('profile');
+
 // Register
 Route::get('/register', [AuthWebController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthWebController::class, 'register'])->name('register');

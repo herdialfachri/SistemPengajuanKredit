@@ -70,7 +70,7 @@ class AuthWebController extends Controller
             return redirect()->route('login.form')->withErrors(['login' => 'Masuk untuk dapat mengakses dashboard!']);
         }
 
-        return view('dashboard', [
+        return view('nasabah.dashboard_nasabah', [
             'user'  => session('user'),
             'token' => session('token'),
         ]);
