@@ -132,7 +132,7 @@ License: https://freebootstrap.net/license
 
                 <div class="header-social d-flex align-items-center gap-1">
                     @guest
-                    <a class="btn btn-primary py-2" href="#">Daftar</a>
+                    <a class="btn btn-primary py-2" href="{{ route('register') }}">Daftar</a>
                     @endguest
 
                     @auth
