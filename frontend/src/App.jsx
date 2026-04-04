@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminDashboard from "./pages/AdminDashboard";
+import Pengajuan from "./pages/Pengajuan"; // import form pengajuan
 
 export default function App() {
   return (
@@ -11,6 +12,8 @@ export default function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+
+        {/* Dashboard user */}
         <Route
           path="/dashboard"
           element={
@@ -19,11 +22,23 @@ export default function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Dashboard admin */}
         <Route
           path="/"
           element={
             <PrivateRoute>
               <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Form pengajuan */}
+        <Route
+          path="/pengajuan"
+          element={
+            <PrivateRoute>
+              <Pengajuan />
             </PrivateRoute>
           }
         />

@@ -45,11 +45,14 @@ class PengajuanController extends Controller
             'alamat'           => 'required',
             'profesi'          => 'required',
             'agunan'           => 'required',
-            'taksasi'          => 'required|numeric',
+            'taksasi'          => 'nullable|numeric',
             'jumlah_plafon'    => 'required|numeric',
             'tujuan_pengajuan' => 'required',
-            'dokumen_pendukung' => 'required',
+            'dokumen_pendukung' => 'required|file|mimes:pdf|max:10240', // PDF max 10MB
         ]);
+
+        // -> variabel untuk menyimpan file ke storage/app/public/dokumen
+        $path = $request->file('dokumen_pendukung')->store('dokumen', 'public');
 
         $pengajuan = Pengajuan::create([
             'user_id'          => $request->user()->id,
@@ -64,7 +67,7 @@ class PengajuanController extends Controller
             'taksasi'          => $request->taksasi,
             'jumlah_plafon'    => $request->jumlah_plafon,
             'tujuan_pengajuan' => $request->tujuan_pengajuan,
-            'dokumen_pendukung' => $request->dokumen_pendukung,
+            'dokumen_pendukung' => $path, // -> pemanggilan variabel untuk simpan path file ke database
             'status'           => 'menunggu',
         ]);
 

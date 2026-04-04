@@ -14,20 +14,23 @@ return new class extends Migration
         Schema::create('pengajuan', function (Blueprint $table) {
             $table->id();
 
-            // user yang buat pengajuan
+            // user yang buat pengajuan (ini terisi otomatis saat user isi data dan send post)
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
 
             // user marketing yang mereferensikan
             $table->foreignId('referral_id')
+                ->nullable()
                 ->constrained('users')
                 ->cascadeOnDelete();
 
             // user pimpinan yang menyetujui
             $table->foreignId('approve_id')
+                ->nullable()
                 ->constrained('users')
                 ->cascadeOnDelete();
+
 
             $table->string('kode_pengajuan')->unique(); // misalnya P100, P101
 

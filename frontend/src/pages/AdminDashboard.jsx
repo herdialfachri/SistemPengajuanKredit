@@ -53,25 +53,39 @@ const handleLogout = async () => {
           <h2 className="logo-text">AdminPanel</h2>
         </div>
         
-        <nav className="sidebar-nav">
-          <ul>
-            {['Dashboard', 'Users', 'Reports', 'Settings'].map((item) => (
-              <li 
-                key={item}
-                className={activeMenu === item ? 'active' : ''}
-                onClick={() => setActiveMenu(item)}
-              >
-                <span className="nav-icon">
-                  {item === 'Dashboard' && <IconDashboard />}
-                  {item === 'Users' && <IconUsers />}
-                  {item === 'Reports' && <IconReports />}
-                  {item === 'Settings' && <IconSettings />}
-                </span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </nav>
+<nav className="sidebar-nav">
+  <ul>
+    {['Dashboard', 'Users', 'Reports', 'Settings'].map((item) => (
+      <li 
+        key={item}
+        className={activeMenu === item ? 'active' : ''}
+        onClick={() => {
+          setActiveMenu(item);
+          if (item === "Reports") {
+            navigate("/pengajuan"); // arahkan ke form pengajuan
+          }
+          if (item === "Dashboard") {
+            navigate("/");
+          }
+          if (item === "Users") {
+            navigate("/users"); // kalau nanti ada halaman users
+          }
+          if (item === "Settings") {
+            navigate("/settings"); // kalau nanti ada halaman settings
+          }
+        }}
+      >
+        <span className="nav-icon">
+          {item === 'Dashboard' && <IconDashboard />}
+          {item === 'Users' && <IconUsers />}
+          {item === 'Reports' && <IconReports />}
+          {item === 'Settings' && <IconSettings />}
+        </span>
+        {item}
+      </li>
+    ))}
+  </ul>
+</nav>
 
         <div className="sidebar-footer">
           <button onClick={handleLogout} className="logout-btn-modern">

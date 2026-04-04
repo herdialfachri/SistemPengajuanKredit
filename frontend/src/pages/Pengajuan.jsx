@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import api from "../api";
-import "./style.css";
+import "./PengajuanForm.css"; // CSS terpisah
 
-export default function Pengajuan() {
-  const [form, setForm] = useState({
+export default function PengajuanForm() {
+  const [formData, setFormData] = useState({
     nik: "",
     nama: "",
     alamat: "",
@@ -13,127 +12,86 @@ export default function Pengajuan() {
     taksasi: "",
     jumlah_plafon: "",
     tujuan_pengajuan: "",
-    dokumen_pendukung: ""
+    dokumen_pendukung: null,
   });
-  const [errors, setErrors] = useState({});
+
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-
-  const validate = () => {
-    const newErrors = {};
-    if (!form.nik) newErrors.nik = true;
-    if (!form.nama) newErrors.nama = true;
-    if (!form.alamat) newErrors.alamat = true;
-    if (!form.profesi) newErrors.profesi = true;
-    if (!form.agunan) newErrors.agunan = true;
-    if (!form.taksasi) newErrors.taksasi = true;
-    if (!form.jumlah_plafon) newErrors.jumlah_plafon = true;
-    if (!form.tujuan_pengajuan) newErrors.tujuan_pengajuan = true;
-    if (!form.dokumen_pendukung) newErrors.dokumen_pendukung = true;
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData({
+      ...formData,
+      [name]: files ? files[0] : value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
     setLoading(true);
+
     try {
-      await api.post("/pengajuan", form, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      const payload = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        payload.append(key, value);
       });
-      alert("Pengajuan berhasil dibuat");
-      navigate("/dashboard");
+
+      const res = await api.post("/pengajuan", payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert(res.data.message);
     } catch (err) {
-      alert("Pengajuan gagal: " + err.response?.data?.message);
+      console.error(err.response?.data || err.message);
+      alert("Gagal mengirim pengajuan");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="login-page">
-      {/* Panel kiri */}
-      <div className="login-panel">
-        <div className="panel-logo">
-          <div className="panel-logo-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white"/>
-            </svg>
-          </div>
-          <span className="panel-logo-name">MyApp</span>
-        </div>
-        <div className="panel-hero">
-          <h2>Form Pengajuan</h2>
-          <p>Isi data pengajuan kredit Anda dengan lengkap.</p>
-        </div>
-      </div>
+    <div className="form-container">
+      <h2>Form Pengajuan Kredit</h2>
+      <form onSubmit={handleSubmit} className="styled-form">
+        <label>NIK</label>
+        <input name="nik" onChange={handleChange} required />
 
-      {/* Form — PC */}
-      <div className="login-right">
-        <FormContent
-          form={form}
-          errors={errors}
-          loading={loading}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
+        <label>Nama</label>
+        <input name="nama" onChange={handleChange} required />
+
+        <label>Alamat</label>
+        <input name="alamat" onChange={handleChange} required />
+
+        <label>Profesi</label>
+        <input name="profesi" onChange={handleChange} required />
+
+        <label>Agunan</label>
+        <textarea name="agunan" onChange={handleChange} required />
+
+        <label>Taksasi (boleh kosong)</label>
+        <input name="taksasi" type="number" onChange={handleChange} />
+
+        <label>Jumlah Plafon</label>
+        <input name="jumlah_plafon" type="number" onChange={handleChange} required />
+
+        <label>Tujuan Pengajuan</label>
+        <textarea name="tujuan_pengajuan" onChange={handleChange} required />
+
+        <label>Dokumen Pendukung (PDF)</label>
+        <input
+          type="file"
+          name="dokumen_pendukung"
+          accept="application/pdf"
+          onChange={handleChange}
+          required
         />
-      </div>
 
-      {/* Mobile header */}
-      <div className="mobile-header">
-        <div className="mobile-logo">
-          <div className="mobile-logo-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white"/>
-            </svg>
-          </div>
-          <span className="mobile-logo-name">MyApp</span>
-        </div>
-        <div className="mobile-hero">
-          <h2>Pengajuan Kredit</h2>
-          <p>Isi data pengajuan Anda</p>
-        </div>
-      </div>
-
-      {/* Form — Mobile */}
-      <div className="mobile-card">
-        <FormContent
-          form={form}
-          errors={errors}
-          loading={loading}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-      </div>
-    </div>
-  );
-}
-
-function FormContent({ form, errors, loading, handleChange, handleSubmit }) {
-  return (
-    <div className="form-box">
-      <p className="form-title">Pengajuan Kredit</p>
-      <p className="form-sub">Lengkapi data berikut</p>
-
-      {["nik","nama","alamat","profesi","agunan","taksasi","jumlah_plafon","tujuan_pengajuan","dokumen_pendukung"].map((field) => (
-        <div key={field}>
-          <label className="f-label">{field.replace("_"," ").toUpperCase()}</label>
-          <input
-            name={field}
-            value={form[field]}
-            onChange={handleChange}
-            className={`f-input${errors[field] ? " error" : ""}`}
-          />
-        </div>
-      ))}
-
-      <button className="btn-login" onClick={handleSubmit} disabled={loading}>
-        {loading ? "Memproses..." : "Kirim Pengajuan"}
-      </button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Mengirim..." : "Kirim Pengajuan"}
+        </button>
+      </form>
     </div>
   );
 }
