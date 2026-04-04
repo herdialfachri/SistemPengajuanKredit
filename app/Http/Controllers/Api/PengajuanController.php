@@ -12,17 +12,26 @@ class PengajuanController extends Controller
     // ================= GET ALL =================
     public function index(Request $request)
     {
-        $userId = $request->user()->id;
+        $user = $request->user();
 
-        $data = Pengajuan::where('user_id', $userId)
-            ->latest()
-            ->get();
+        if ($user->role === 'marketing') {
+            // ambil pengajuan yang direferensikan oleh marketing yang login
+            $data = Pengajuan::where('referral_id', $user->id)
+                ->with('referral')
+                ->latest()
+                ->get();
+        } else {
+            // default: ambil pengajuan milik user sendiri
+            $data = Pengajuan::where('user_id', $user->id)
+                ->with('referral')
+                ->latest()
+                ->get();
+        }
 
-        // loop setiap item supaya accessor ikut dikirim
         $data->each->append('dokumen_pendukung_url');
 
         return response()->json([
-            'message' => 'Data pengajuan milik user',
+            'message' => 'Data pengajuan',
             'data'    => $data,
         ]);
     }
@@ -53,7 +62,8 @@ class PengajuanController extends Controller
             'taksasi'          => 'nullable|numeric',
             'jumlah_plafon'    => 'required|numeric',
             'tujuan_pengajuan' => 'required',
-            'dokumen_pendukung' => 'required|file|mimes:pdf|max:10240', // PDF max 10MB
+            'dokumen_pendukung' => 'required|file|mimes:pdf|max:10240',
+            'referral_id'      => 'required|exists:users,id',
         ]);
 
         // -> variabel untuk menyimpan file ke storage/app/public/dokumen

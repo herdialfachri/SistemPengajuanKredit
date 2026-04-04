@@ -1,32 +1,62 @@
 // Sidebar.jsx
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { IconDashboard, IconReports, IconSettings, IconLogout } from "./Icons";
+import {
+    IconDashboard,
+    IconReports,
+    IconSettings,
+    IconLogout,
+    IconUsers,
+} from "./Icons";
 
 export default function Sidebar({ activeMenu, setActiveMenu, handleLogout }) {
     const navigate = useNavigate();
-    const location = useLocation(); // ambil path aktif
+    const location = useLocation();
+
+    // ambil data user dari localStorage
+    const user = JSON.parse(localStorage.getItem("user"));
+    const role = user?.role; // misalnya "nasabah", "admin", "pimpinan"
 
     const menus = [
+        {
+            key: "users",
+            name: "Admin",
+            path: "/admin",
+            icon: <IconUsers />,
+            roles: ["admin"],
+        },
+        {
+            key: "marketing-dashboard",
+            name: "Marketing",
+            path: "/marketing",
+            icon: <IconUsers />,
+            roles: ["marketing"],
+        },
         {
             key: "dashboard",
             name: "Dashboard",
             path: "/",
             icon: <IconDashboard />,
+            roles: ["nasabah"],
         },
         {
             key: "pengajuan",
             name: "Pengajuan",
             path: "/pengajuan",
             icon: <IconReports />,
+            roles: ["nasabah"],
         },
         {
             key: "pengaturan",
             name: "Pengaturan",
             path: "/settings",
             icon: <IconSettings />,
+            roles: ["nasabah", "marketing", "pimpinan", "admin"],
         },
     ];
+
+    // filter menu sesuai role
+    const filteredMenus = menus.filter((item) => item.roles.includes(role));
 
     return (
         <aside className="sidebar">
@@ -37,7 +67,7 @@ export default function Sidebar({ activeMenu, setActiveMenu, handleLogout }) {
 
             <nav className="sidebar-nav">
                 <ul>
-                    {menus.map((item) => (
+                    {filteredMenus.map((item) => (
                         <li
                             key={item.key}
                             className={

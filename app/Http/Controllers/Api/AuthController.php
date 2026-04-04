@@ -143,4 +143,11 @@ class AuthController extends Controller
             'user'    => $user,
         ]);
     }
+
+    // ================= GET REFERRALS =================
+    public function referrals()
+    {
+        $referrals = User::where('role', 'marketing')->get(['id', 'nama']);
+        return response()->json($referrals);
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../api";
 import "../assets/css/PengajuanForm.css";
 
@@ -9,10 +9,10 @@ export default function PengajuanForm() {
         alamat: "",
         profesi: "",
         agunan: "",
-        taksasi: "",
         jumlah_plafon: "",
         tujuan_pengajuan: "",
         dokumen_pendukung: null,
+        referral_id: "",
     });
     const [loading, setLoading] = useState(false);
     const [fileName, setFileName] = useState("");
@@ -27,6 +27,24 @@ export default function PengajuanForm() {
             [name]: files ? files[0] : value,
         });
     };
+
+    const [referrals, setReferrals] = useState([]);
+
+    useEffect(() => {
+        const fetchReferrals = async () => {
+            try {
+                const res = await api.get("/referrals", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                setReferrals(res.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchReferrals();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -56,23 +74,7 @@ export default function PengajuanForm() {
             <div className="form-card">
                 {/* Card Header */}
                 <div className="form-card-header">
-                    <div className="header-icon">
-                        <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#DC2626"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                            <polyline points="14 2 14 8 20 8" />
-                            <line x1="16" y1="13" x2="8" y2="13" />
-                            <line x1="16" y1="17" x2="8" y2="17" />
-                        </svg>
-                    </div>
+                    <div className="header-icon"></div>
                     <div>
                         <h2>Data Pengajuan</h2>
                         <span className="header-subtitle">
@@ -96,38 +98,7 @@ export default function PengajuanForm() {
                                     NIK <span className="required">*</span>
                                 </label>
                                 <div className="input-wrapper">
-                                    <span className="input-icon">
-                                        <svg
-                                            width="15"
-                                            height="15"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <rect
-                                                x="2"
-                                                y="4"
-                                                width="20"
-                                                height="16"
-                                                rx="2"
-                                            />
-                                            <line
-                                                x1="8"
-                                                y1="10"
-                                                x2="16"
-                                                y2="10"
-                                            />
-                                            <line
-                                                x1="8"
-                                                y1="14"
-                                                x2="12"
-                                                y2="14"
-                                            />
-                                        </svg>
-                                    </span>
+                                    <span className="input-icon"></span>
                                     <input
                                         type="text"
                                         name="nik"
@@ -146,21 +117,7 @@ export default function PengajuanForm() {
                                     <span className="required">*</span>
                                 </label>
                                 <div className="input-wrapper">
-                                    <span className="input-icon">
-                                        <svg
-                                            width="15"
-                                            height="15"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                            <circle cx="12" cy="7" r="4" />
-                                        </svg>
-                                    </span>
+                                    <span className="input-icon"></span>
                                     <input
                                         type="text"
                                         name="nama"
@@ -180,27 +137,7 @@ export default function PengajuanForm() {
                                     Profesi <span className="required">*</span>
                                 </label>
                                 <div className="input-wrapper">
-                                    <span className="input-icon">
-                                        <svg
-                                            width="15"
-                                            height="15"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <rect
-                                                x="2"
-                                                y="7"
-                                                width="20"
-                                                height="14"
-                                                rx="2"
-                                            />
-                                            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                                        </svg>
-                                    </span>
+                                    <span className="input-icon"></span>
                                     <input
                                         type="text"
                                         name="profesi"
@@ -212,42 +149,28 @@ export default function PengajuanForm() {
                                 </div>
                             </div>
 
-                            {/* Taksasi */}
+                            {/* Referral Marketing */}
                             <div className="form-group">
                                 <label>
-                                    Taksasi{" "}
-                                    <span className="helper-text-inline">
-                                        (opsional)
-                                    </span>
+                                    Referral Marketing{" "}
+                                    <span className="required">*</span>
                                 </label>
                                 <div className="input-wrapper">
-                                    <span className="input-icon">
-                                        <svg
-                                            width="15"
-                                            height="15"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <line
-                                                x1="12"
-                                                y1="1"
-                                                x2="12"
-                                                y2="23"
-                                            />
-                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                                        </svg>
-                                    </span>
-                                    <input
-                                        type="number"
-                                        name="taksasi"
-                                        value={formData.taksasi}
+                                    <select
+                                        name="referral_id"
+                                        value={formData.referral_id}
                                         onChange={handleChange}
-                                        placeholder="Nilai taksasi (Rp)"
-                                    />
+                                        required
+                                    >
+                                        <option value="">
+                                            -- Pilih Referral --
+                                        </option>
+                                        {referrals.map((ref) => (
+                                            <option key={ref.id} value={ref.id}>
+                                                {ref.nama}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -258,21 +181,7 @@ export default function PengajuanForm() {
                                 Alamat <span className="required">*</span>
                             </label>
                             <div className="input-wrapper">
-                                <span className="input-icon icon-top">
-                                    <svg
-                                        width="15"
-                                        height="15"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                </span>
+                                <span className="input-icon icon-top"></span>
                                 <textarea
                                     name="alamat"
                                     value={formData.alamat}
@@ -293,27 +202,7 @@ export default function PengajuanForm() {
                                 <span className="required">*</span>
                             </label>
                             <div className="input-wrapper">
-                                <span className="input-icon">
-                                    <svg
-                                        width="15"
-                                        height="15"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <rect
-                                            x="2"
-                                            y="5"
-                                            width="20"
-                                            height="14"
-                                            rx="2"
-                                        />
-                                        <line x1="2" y1="10" x2="22" y2="10" />
-                                    </svg>
-                                </span>
+                                <span className="input-icon"></span>
                                 <input
                                     type="number"
                                     name="jumlah_plafon"
@@ -331,20 +220,7 @@ export default function PengajuanForm() {
                                 Agunan <span className="required">*</span>
                             </label>
                             <div className="input-wrapper">
-                                <span className="input-icon icon-top">
-                                    <svg
-                                        width="15"
-                                        height="15"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                    </svg>
-                                </span>
+                                <span className="input-icon icon-top"></span>
                                 <textarea
                                     name="agunan"
                                     value={formData.agunan}
@@ -362,27 +238,7 @@ export default function PengajuanForm() {
                                 <span className="required">*</span>
                             </label>
                             <div className="input-wrapper">
-                                <span className="input-icon icon-top">
-                                    <svg
-                                        width="15"
-                                        height="15"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <circle cx="12" cy="12" r="10" />
-                                        <line x1="12" y1="8" x2="12" y2="12" />
-                                        <line
-                                            x1="12"
-                                            y1="16"
-                                            x2="12.01"
-                                            y2="16"
-                                        />
-                                    </svg>
-                                </span>
+                                <span className="input-icon icon-top"></span>
                                 <textarea
                                     name="tujuan_pengajuan"
                                     value={formData.tujuan_pengajuan}
@@ -406,22 +262,7 @@ export default function PengajuanForm() {
                                 className="file-upload-area"
                                 htmlFor="dokumen_input"
                             >
-                                <div className="file-upload-icon">
-                                    <svg
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#DC2626"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                        <polyline points="17 8 12 3 7 8" />
-                                        <line x1="12" y1="3" x2="12" y2="15" />
-                                    </svg>
-                                </div>
+                                <div className="file-upload-icon"></div>
                                 {fileName ? (
                                     <div className="file-selected">
                                         <span className="file-name">
@@ -463,19 +304,6 @@ export default function PengajuanForm() {
                             className="btn btn-ghost"
                             onClick={() => window.history.back()}
                         >
-                            <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <line x1="19" y1="12" x2="5" y2="12" />
-                                <polyline points="12 19 5 12 12 5" />
-                            </svg>
                             Kembali
                         </button>
                         <button
@@ -489,22 +317,7 @@ export default function PengajuanForm() {
                                     Mengirim...
                                 </>
                             ) : (
-                                <>
-                                    <svg
-                                        width="14"
-                                        height="14"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <line x1="22" y1="2" x2="11" y2="13" />
-                                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                                    </svg>
-                                    Kirim Pengajuan
-                                </>
+                                <>Kirim Pengajuan</>
                             )}
                         </button>
                     </div>

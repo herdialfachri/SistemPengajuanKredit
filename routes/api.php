@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get-users', [AuthController::class, 'getUsers'])->name('auth.getUsers');
     Route::get('/profile', [AuthController::class, 'profile'])->name('auth.profile');
     Route::put('/profile', [AuthController::class, 'updateProfile'])->name('auth.updateProfile');
+    Route::get('/referrals', [AuthController::class, 'referrals'])->name('auth.referrals');
 
     // ---------- PENGAJUAN ----------
     Route::prefix('pengajuan')->name('pengajuan.')->group(function () {

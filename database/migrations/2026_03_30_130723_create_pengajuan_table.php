@@ -21,7 +21,6 @@ return new class extends Migration
 
             // user marketing yang mereferensikan
             $table->foreignId('referral_id')
-                ->nullable()
                 ->constrained('users')
                 ->cascadeOnDelete();
 

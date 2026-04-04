@@ -3,9 +3,9 @@ import "../assets/css/dashboard.css";
 import api from "../api";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import NasabahContent from "../components/NasabahContent";
+import MarketingContent from "../components/MarketingContent";
 
-export default function NasabahDashboard() {
+export default function MarketingDashboard() {
     const [activeMenu, setActiveMenu] = useState("Dashboard");
 
     const handleLogout = async () => {
@@ -40,7 +40,7 @@ export default function NasabahDashboard() {
             />
             <main className="main-content">
                 <Header />
-                <NasabahContent stats={stats} />
+                <MarketingContent stats={stats} />
             </main>
         </div>
     );

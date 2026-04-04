@@ -6,6 +6,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import NasabahDashboard from "./pages/NasabahDashboard";
 import Pengajuan from "./pages/Pengajuan"; // import form pengajuan
 import Profile from "./pages/Profile";
+import AdminDashboard from "./pages/AdminDashboard";
+import MarketingDashboard from "./pages/MarketingDashboard";
 
 export default function App() {
     return (
@@ -13,7 +15,6 @@ export default function App() {
             <Routes>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-
                 {/* Dashboard user */}
                 <Route
                     path="/dashboard"
@@ -23,7 +24,6 @@ export default function App() {
                         </PrivateRoute>
                     }
                 />
-
                 {/* Dashboard admin */}
                 <Route
                     path="/"
@@ -33,7 +33,6 @@ export default function App() {
                         </PrivateRoute>
                     }
                 />
-
                 {/* Form pengajuan */}
                 <Route
                     path="/pengajuan"
@@ -51,6 +50,23 @@ export default function App() {
                         </PrivateRoute>
                     }
                 />
+                <Route
+                    path="/admin"
+                    element={
+                        <PrivateRoute>
+                            <AdminDashboard />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/marketing"
+                    element={
+                        <PrivateRoute>
+                            <MarketingDashboard />
+                        </PrivateRoute>
+                    }
+                />
+                ;
             </Routes>
         </BrowserRouter>
     );

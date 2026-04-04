@@ -34,8 +34,20 @@ export default function Login() {
             // simpan data user dari response
             localStorage.setItem("user", JSON.stringify(res.data.user));
 
-            // redirect ke dashboard/admin
-            navigate("/");
+            // ambil role user
+            const role = res.data.user.role;
+
+            // redirect sesuai role
+            if (role === "nasabah") {
+                navigate("/");
+            } else if (role === "marketing") {
+                navigate("/marketing");
+            } else if (role === "admin") {
+                navigate("/admin");
+            } else {
+                // fallback kalau role tidak dikenali
+                navigate("/");
+            }
         } catch (err) {
             alert("Login gagal: " + err.response?.data?.message);
         } finally {

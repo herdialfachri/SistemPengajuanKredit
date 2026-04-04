@@ -60,4 +60,9 @@ protected $table = 'pengajuan';
             ? asset('storage/' . $this->dokumen_pendukung) 
             : null;
     }
+
+    public function referral()
+    {
+        return $this->belongsTo(User::class, 'referral_id');
+    }
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../api";
 import { IconUsers, IconDollar, IconBox, IconClock } from "./Icons";
 
-export default function NasabahContent({ stats }) {
+export default function MarketingContent({ stats }) {
     const [pengajuan, setPengajuan] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -27,7 +27,7 @@ export default function NasabahContent({ stats }) {
     return (
         <div className="content-wrapper">
             {/* Stats Grid */}
-            {/* <div className="stats-grid">
+            <div className="stats-grid">
                 {stats.map((stat, index) => (
                     <div key={index} className="stat-card">
                         <div className="stat-icon-bg">
@@ -55,7 +55,7 @@ export default function NasabahContent({ stats }) {
                         </span>
                     </div>
                 ))}
-            </div> */}
+            </div>
 
             {/* Pengajuan Table */}
             <div className="table-container">
