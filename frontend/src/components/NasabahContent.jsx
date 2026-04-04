@@ -27,7 +27,7 @@ export default function DashboardContent({ stats }) {
     return (
         <div className="content-wrapper">
             {/* Stats Grid */}
-            <div className="stats-grid">
+            {/* <div className="stats-grid">
                 {stats.map((stat, index) => (
                     <div key={index} className="stat-card">
                         <div className="stat-icon-bg">
@@ -55,13 +55,13 @@ export default function DashboardContent({ stats }) {
                         </span>
                     </div>
                 ))}
-            </div>
+            </div> */}
 
             {/* Pengajuan Table */}
             <div className="table-container">
                 <div className="table-header">
                     <h3>Data Pengajuan Kredit</h3>
-                    <button className="btn-view-all">Lihat Semua</button>
+                    {/* <button className="btn-view-all">Lihat Semua</button> */}
                 </div>
 
                 {loading ? (
@@ -79,6 +79,7 @@ export default function DashboardContent({ stats }) {
                                 <th>Tujuan</th>
                                 <th>Status</th>
                                 <th>Dibuat</th>
+                                <th>Dokumen</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,6 +103,22 @@ export default function DashboardContent({ stats }) {
                                         {new Date(
                                             row.created_at,
                                         ).toLocaleString("id-ID")}
+                                    </td>
+                                    <td>
+                                        {row.dokumen_pendukung_url ? (
+                                            <a
+                                                href={row.dokumen_pendukung_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="btn-download"
+                                            >
+                                                Lihat
+                                            </a>
+                                        ) : (
+                                            <span className="text-muted">
+                                                Tidak ada
+                                            </span>
+                                        )}
                                     </td>
                                 </tr>
                             ))}

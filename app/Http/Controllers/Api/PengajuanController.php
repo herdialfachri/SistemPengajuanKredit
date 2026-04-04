@@ -12,11 +12,14 @@ class PengajuanController extends Controller
     // ================= GET ALL =================
     public function index(Request $request)
     {
-        $userId = $request->user()->id; // ambil id user yang login
+        $userId = $request->user()->id;
 
         $data = Pengajuan::where('user_id', $userId)
             ->latest()
             ->get();
+
+        // loop setiap item supaya accessor ikut dikirim
+        $data->each->append('dokumen_pendukung_url');
 
         return response()->json([
             'message' => 'Data pengajuan milik user',
@@ -30,14 +33,12 @@ class PengajuanController extends Controller
         $data = Pengajuan::find($id);
 
         if (! $data) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan',
-            ], 404);
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
         }
 
-        return response()->json([
-            'data' => $data,
-        ]);
+        $data->append('dokumen_pendukung_url');
+
+        return response()->json(['data' => $data]);
     }
 
     // ================= STORE =================

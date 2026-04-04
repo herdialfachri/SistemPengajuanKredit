@@ -484,6 +484,29 @@ body {
     color: var(--text-dark);
 }
 
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* jarak antara ikon dan teks */
+    background-color: #e11d48; /* merah tua */
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-download:hover {
+    background-color: #be123c; /* warna lebih gelap saat hover */
+}
+
+.btn-download svg {
+    width: 16px;
+    height: 16px;
+}
+
 .btn-view-all {
     background-color: transparent;
     color: var(--primary-color);
@@ -546,18 +569,59 @@ body {
     border-radius: 20px;
     font-size: 12px;
     font-weight: 500;
+    text-transform: capitalize;
 }
+
+/* status menunggu */
+.status-badge.menunggu {
+    background-color: #fca5a5; /* merah muda */
+    color: #7f1d1d;
+}
+
+/* dokumen tidak lengkap */
+.status-badge.dokumen_tidak_lengkap {
+    background-color: #fde68a; /* kuning muda */
+    color: #92400e;
+}
+
+/* verifikasi */
+.status-badge.verifikasi {
+    background-color: #bfdbfe; /* biru muda */
+    color: #1e3a8a;
+}
+
+/* menunggu persetujuan */
+.status-badge.menunggu_persetujuan {
+    background-color: #fcd34d; /* kuning */
+    color: #78350f;
+}
+
+/* disetujui */
+.status-badge.disetujui,
 .status-badge.success {
-    background-color: #dcfce7;
+    /* timpa success lama */
+    background-color: #dcfce7; /* hijau muda */
     color: #16a34a;
 }
+
+/* ditolak */
+.status-badge.ditolak,
+.status-badge.failed {
+    /* timpa failed lama */
+    background-color: #fee2e2; /* merah muda */
+    color: #dc2626;
+}
+
+/* dicairkan */
+.status-badge.dicairkan {
+    background-color: #bbf7d0; /* hijau terang */
+    color: #065f46;
+}
+
+/* pending lama bisa dipakai untuk status verifikasi/menunggu_persetujuan kalau mau */
 .status-badge.pending {
     background-color: #fef3c7;
     color: #d97706;
-}
-.status-badge.failed {
-    background-color: #fee2e2;
-    color: #dc2626;
 }
 
 /* =============================================

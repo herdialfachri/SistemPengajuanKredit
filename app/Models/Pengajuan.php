@@ -52,4 +52,12 @@ protected $table = 'pengajuan';
     {
         return $this->hasOne(Pencairan::class, 'pengajuan_id');
     }
+
+    // fungsi untuk mendapatkan URL dokumen pendukung
+    public function getDokumenPendukungUrlAttribute()
+    {
+        return $this->dokumen_pendukung 
+            ? asset('storage/' . $this->dokumen_pendukung) 
+            : null;
+    }
 }
