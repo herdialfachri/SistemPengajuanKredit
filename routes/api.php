@@ -16,6 +16,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('/me', [AuthController::class, 'me'])->name('auth.me');
     Route::get('/get-users', [AuthController::class, 'getUsers'])->name('auth.getUsers');
+    Route::get('/profile', [AuthController::class, 'profile'])->name('auth.profile');
+    Route::put('/profile', [AuthController::class, 'updateProfile'])->name('auth.updateProfile');
 
     // ---------- PENGAJUAN ----------
     Route::prefix('pengajuan')->name('pengajuan.')->group(function () {

@@ -3,10 +3,10 @@ import "../assets/css/dashboard.css";
 import api from "../api";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import PengajuanForm from "../components/PengajuanForm";
+import DashboardContent from "../components/NasabahContent";
 
-export default function Pengajuan() {
-    const [activeMenu, setActiveMenu] = useState("Reports");
+export default function AdminDashboard() {
+    const [activeMenu, setActiveMenu] = useState("Dashboard");
 
     const handleLogout = async () => {
         const token = localStorage.getItem("token");
@@ -24,6 +24,13 @@ export default function Pengajuan() {
         window.location.href = "/login";
     };
 
+    const stats = [
+        { title: "Total Users", value: "1,240", change: "+12%", icon: "users" },
+        { title: "Revenue", value: "$45,200", change: "+8%", icon: "dollar" },
+        { title: "New Orders", value: "340", change: "+5%", icon: "orders" },
+        { title: "Pending", value: "15", change: "-2%", icon: "pending" },
+    ];
+
     return (
         <div className="dashboard-container">
             <Sidebar
@@ -33,9 +40,7 @@ export default function Pengajuan() {
             />
             <main className="main-content">
                 <Header />
-                <div className="content-wrapper">
-                    <PengajuanForm />
-                </div>
+                <DashboardContent stats={stats} />
             </main>
         </div>
     );

@@ -96,4 +96,51 @@ class AuthController extends Controller
 
         return response()->json($users);
     }
+
+    // ================= GET PROFILE =================
+    public function profile(Request $request)
+    {
+        $user = $request->user(); // ambil user dari token
+
+        return response()->json([
+            'message' => 'Data user berhasil diambil',
+            'user'    => $user,
+        ]);
+    }
+
+    // ================= UPDATE PROFILE =================
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'nama'             => 'sometimes|required|string',
+            'email'            => 'sometimes|required|email|unique:users,email,' . $user->id,
+            'no_hp'            => 'sometimes|required|string',
+            'tempat_lahir'     => 'sometimes|required|string',
+            'tanggal_lahir'    => 'sometimes|required|date',
+            'jenis_kelamin'    => 'sometimes|required|in:laki-laki,perempuan',
+            'status_perkawinan'=> 'sometimes|required|string',
+            'pekerjaan'        => 'sometimes|required|string',
+            'alamat'           => 'sometimes|required|string',
+            'password'         => 'nullable|min:6|confirmed',
+        ]);
+
+        $data = $request->only([
+            'nama','email','no_hp','tempat_lahir','tanggal_lahir',
+            'jenis_kelamin','status_perkawinan','pekerjaan','alamat'
+        ]);
+
+        // hanya update password kalau ada input
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return response()->json([
+            'message' => 'Profile berhasil diupdate',
+            'user'    => $user,
+        ]);
+    }
 }

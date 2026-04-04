@@ -12,10 +12,14 @@ class PengajuanController extends Controller
     // ================= GET ALL =================
     public function index(Request $request)
     {
-        $data = Pengajuan::latest()->get();
+        $userId = $request->user()->id; // ambil id user yang login
+
+        $data = Pengajuan::where('user_id', $userId)
+            ->latest()
+            ->get();
 
         return response()->json([
-            'message' => 'Data pengajuan',
+            'message' => 'Data pengajuan milik user',
             'data'    => $data,
         ]);
     }
