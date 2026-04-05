@@ -37,7 +37,14 @@ export default function Sidebar({ activeMenu, setActiveMenu, handleLogout }) {
             name: "Dashboard",
             path: "/",
             icon: <IconDashboard />,
-            roles: ["nasabah", "pimpinan"],
+            roles: ["nasabah"],
+        },
+        {
+            key: "pimpinan-dashboard",
+            name: "Dashboard",
+            path: "/pimpinan",
+            icon: <IconDashboard />,
+            roles: ["pimpinan"],
         },
         {
             key: "pengajuan",
