@@ -37,7 +37,7 @@ export default function Sidebar({ activeMenu, setActiveMenu, handleLogout }) {
             name: "Dashboard",
             path: "/",
             icon: <IconDashboard />,
-            roles: ["nasabah"],
+            roles: ["nasabah", "pimpinan"],
         },
         {
             key: "pengajuan",

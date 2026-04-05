@@ -8,6 +8,7 @@ import Pengajuan from "./pages/Pengajuan"; // import form pengajuan
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
 import MarketingDashboard from "./pages/MarketingDashboard";
+import PimpinanDashboard from "./pages/PimpinanDashboard";
 
 export default function App() {
     return (
@@ -63,6 +64,14 @@ export default function App() {
                     element={
                         <PrivateRoute>
                             <MarketingDashboard />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/pimpinan"
+                    element={
+                        <PrivateRoute>
+                            <PimpinanDashboard />
                         </PrivateRoute>
                     }
                 />

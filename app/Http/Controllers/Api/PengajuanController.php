@@ -20,8 +20,14 @@ class PengajuanController extends Controller
                 ->with(['nasabah', 'marketing', 'pimpinan'])
                 ->latest()
                 ->get();
+        } elseif ($user->role === 'pimpinan') {
+            // ambil pengajuan yang di-approve oleh pimpinan yang login
+            $data = Pengajuan::where('approve_id', $user->id)
+                ->with(['nasabah', 'marketing', 'pimpinan'])
+                ->latest()
+                ->get();
         } else {
-            // default: ambil pengajuan milik user sendiri
+            // default: ambil pengajuan milik user sendiri (nasabah)
             $data = Pengajuan::where('user_id', $user->id)
                 ->with(['nasabah', 'marketing', 'pimpinan'])
                 ->latest()

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../api";
 import { IconUsers, IconDollar, IconBox, IconClock } from "./Icons";
 
-export default function MarketingContent({ stats }) {
+export default function PimpinanContent({ stats }) {
     const [pengajuan, setPengajuan] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pimpinanList, setPimpinanList] = useState([]);
@@ -53,8 +53,6 @@ export default function MarketingContent({ stats }) {
     const handleEdit = (row) => {
         setEditingId(row.id);
         setFormData({
-            approve_id: row.approve_id || "",
-            taksasi: row.taksasi || "",
             status: row.status,
         });
         setShowModal(true);
@@ -63,24 +61,29 @@ export default function MarketingContent({ stats }) {
     // update data
     const handleUpdate = async () => {
         try {
-            await api.put(`/pengajuan/${editingId}`, formData, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+            await api.put(
+                `/pengajuan/${editingId}`,
+                { status: formData.status }, // 🔥 cuma ini
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
                 },
-            });
-            alert("Data berhasil diupdate");
+            );
 
-            // refresh data
+            alert("Status berhasil diupdate");
+
             const res = await api.get("/pengajuan", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
+
             setPengajuan(res.data.data);
             setShowModal(false);
         } catch (err) {
             console.error(err.response?.data || err.message);
-            alert("Gagal update data");
+            alert("Gagal update status");
         }
     };
 
@@ -330,53 +333,17 @@ export default function MarketingContent({ stats }) {
             {/* Modal Edit */}
             {showModal && (
                 <div className="modal">
-                    <h3>Edit Pengajuan</h3>
+                    <h3>Edit Status Pengajuan</h3>
 
-                    {/* Approve ID */}
                     <select
-                        value={formData.approve_id || ""}
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                approve_id: e.target.value,
-                            })
-                        }
-                    >
-                        <option value="">-- Pilih Pimpinan --</option>
-                        {pimpinanList.map((p) => (
-                            <option key={p.id} value={p.id}>
-                                {p.nama}
-                            </option>
-                        ))}
-                    </select>
-
-                    {/* Taksasi */}
-                    <input
-                        type="number"
-                        value={formData.taksasi || ""}
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                taksasi: e.target.value,
-                            })
-                        }
-                        placeholder="Taksasi"
-                    />
-
-                    {/* Status */}
-                    <select
-                        value={formData.status}
+                        value={formData.status || ""}
                         onChange={(e) =>
                             setFormData({ ...formData, status: e.target.value })
                         }
                     >
-                        <option value="dokumen_tidak_lengkap">
-                            Dokumen Tidak Lengkap
-                        </option>
-                        <option value="verifikasi">Verifikasi</option>
-                        <option value="menunggu_persetujuan">
-                            Menunggu Persetujuan
-                        </option>
+                        <option value="">-- Pilih Keputusan --</option>
+                        <option value="disetujui">Disetujui</option>
+                        <option value="ditolak">Ditolak</option>
                     </select>
 
                     <div className="modal-actions">

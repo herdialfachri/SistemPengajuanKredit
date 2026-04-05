@@ -44,6 +44,8 @@ export default function Login() {
                 navigate("/marketing");
             } else if (role === "admin") {
                 navigate("/admin");
+            } else if (role === "pimpinan") {
+                navigate("/pimpinan");
             } else {
                 // fallback kalau role tidak dikenali
                 navigate("/");
