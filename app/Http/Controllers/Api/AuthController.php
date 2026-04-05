@@ -150,4 +150,14 @@ class AuthController extends Controller
         $referrals = User::where('role', 'marketing')->get(['id', 'nama']);
         return response()->json($referrals);
     }
+    
+    // ================= GET PIMPINAN =================
+    public function pimpinanList()
+    {
+        $pimpinan = User::where('role', 'pimpinan')->get(['id', 'nama']);
+        return response()->json([
+            'message' => 'Daftar pimpinan',
+            'data'    => $pimpinan,
+        ]);
+    }
 }

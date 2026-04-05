@@ -484,6 +484,7 @@ body {
     color: var(--text-dark);
 }
 
+/* Tombol Download (PDF) */
 .btn-download {
     display: inline-flex;
     align-items: center;
@@ -495,6 +496,8 @@ body {
     font-size: 12px;
     font-weight: 500;
     text-decoration: none;
+    border: none;
+    cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
@@ -507,7 +510,38 @@ body {
     height: 16px;
 }
 
+/* Tombol Edit */
+.btn-edit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* biar teks rata tengah */
+    gap: 6px;
+    background-color: #2563eb; /* biru */
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-edit:hover {
+    background-color: #1e40af; /* biru lebih gelap */
+}
+
+.btn-edit svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Tombol View All */
 .btn-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     background-color: transparent;
     color: var(--primary-color);
     border: none;
@@ -519,8 +553,21 @@ body {
     transition: all 0.2s ease;
     font-family: "Inter", sans-serif;
 }
+
 .btn-view-all:hover {
     background-color: #fef2f2;
+}
+
+.expanded-content {
+    display: flex;
+    flex-wrap: wrap; /* biar kalau kepanjangan turun ke baris berikutnya */
+    gap: 24px; /* jarak antar item */
+    padding: 12px 0;
+}
+
+.expanded-content p {
+    margin: 0;
+    flex: 1 1 200px; /* tiap item minimal lebar 200px, fleksibel */
 }
 
 .modern-table {

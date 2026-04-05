@@ -17,13 +17,13 @@ class PengajuanController extends Controller
         if ($user->role === 'marketing') {
             // ambil pengajuan yang direferensikan oleh marketing yang login
             $data = Pengajuan::where('referral_id', $user->id)
-                ->with('referral')
+                ->with(['nasabah', 'marketing', 'pimpinan'])
                 ->latest()
                 ->get();
         } else {
             // default: ambil pengajuan milik user sendiri
             $data = Pengajuan::where('user_id', $user->id)
-                ->with('referral')
+                ->with(['nasabah', 'marketing', 'pimpinan'])
                 ->latest()
                 ->get();
         }
@@ -35,6 +35,7 @@ class PengajuanController extends Controller
             'data'    => $data,
         ]);
     }
+
 
     // ================= SHOW =================
     public function show($id)
