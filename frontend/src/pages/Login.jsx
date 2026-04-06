@@ -62,30 +62,26 @@ export default function Login() {
             {/* Panel Kiri — hanya PC */}
             <div className="login-panel">
                 <div className="panel-logo">
-                    <div className="panel-logo-icon">
-                        <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                                fill="white"
+                    <div className="panel-logo">
+                        <div>
+                            <img
+                                src="/bpr-white-logo.png"
+                                alt="BPR Supra Logo"
+                                style={{ width: "60px", height: "40px" }}
                             />
-                        </svg>
+                        </div>
+                        <span className="panel-logo-name">BPR Supra</span>
                     </div>
-                    <span className="panel-logo-name">MyApp</span>
                 </div>
                 <div className="panel-hero">
-                    <h2>Kelola bisnis kamu lebih mudah</h2>
+                    <h2>PT BPR Supra Artapersada</h2>
                     <p>
-                        Platform all-in-one untuk tim modern. Cepat, aman, dan
-                        mudah digunakan kapan saja.
+                        Solusi keuangan terpercaya untuk masyarakat. Mudah,
+                        aman, dan selalu hadir mendukung bisnis kamu.
                     </p>
                 </div>
                 <div className="panel-dots">
-                    <div className="dot active" />
+                    <div className="dot" />
                     <div className="dot" />
                     <div className="dot" />
                 </div>
@@ -107,20 +103,13 @@ export default function Login() {
             {/* Header — hanya Mobile */}
             <div className="mobile-header">
                 <div className="mobile-logo">
-                    <div className="mobile-logo-icon">
-                        <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                        >
-                            <path
-                                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                                fill="white"
-                            />
-                        </svg>
+                    <div>
+                        <img
+                            src="/bpr-white-logo.png"
+                            alt="BPR Supra Logo"
+                            style={{ width: "50px", height: "30px" }}
+                        />
                     </div>
-                    <span className="mobile-logo-name">MyApp</span>
                 </div>
                 <div className="mobile-hero">
                     <h2>Selamat datang kembali!</h2>

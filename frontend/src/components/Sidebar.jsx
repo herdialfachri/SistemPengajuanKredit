@@ -68,7 +68,13 @@ export default function Sidebar({ activeMenu, setActiveMenu, handleLogout }) {
     return (
         <aside className="sidebar">
             <div className="sidebar-header">
-                <div className="logo-icon">BS</div>
+                <div>
+                    <img
+                        src="/bpr-logo-2.png"
+                        alt="BPR Supra Logo"
+                        style={{ width: "60px", height: "40px" }}
+                    />
+                </div>
                 <h2 className="logo-text">BPR Supra</h2>
             </div>
 

@@ -59,9 +59,10 @@ body {
 .sidebar-header {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: flex-start;
+    gap: 8px;
     margin-bottom: 40px;
-    padding-left: 8px;
+    padding: 0 12px;
 }
 
 .logo-icon {
@@ -82,7 +83,6 @@ body {
     font-size: 20px;
     font-weight: 700;
     color: var(--text-dark);
-    flex: 1;
 }
 
 /* Tombol close — hanya terlihat di mobile */
