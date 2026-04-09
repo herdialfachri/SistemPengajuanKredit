@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import { IconUsers } from "../components/Icons";
 import api from "../api";
+import "../assets/css/Profile.css";
 
 export default function Profile() {
     const [activeMenu, setActiveMenu] = useState("pengaturan");
@@ -28,6 +30,8 @@ export default function Profile() {
             setFormData((prev) => ({
                 ...prev,
                 ...user,
+                password: "",
+                password_confirmation: "",
             }));
         }
     }, []);
@@ -86,7 +90,11 @@ export default function Profile() {
                 <Header />
                 <div className="content-wrapper">
                     <div className="form-card">
-                        <h2>Edit Profile</h2>
+                        <div className="form-card-header">
+                            <div>
+                                <h3>Edit Profile</h3>
+                            </div>
+                        </div>
                         <form onSubmit={handleSubmit} className="form-body">
                             <div className="form-group">
                                 <label>Nama</label>
@@ -189,13 +197,17 @@ export default function Profile() {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <button
-                                type="submit"
-                                className="btn btn-primary"
-                                disabled={loading}
-                            >
-                                {loading ? "Menyimpan..." : "Simpan Perubahan"}
-                            </button>
+                            <div className="form-footer">
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary"
+                                    disabled={loading}
+                                >
+                                    {loading
+                                        ? "Menyimpan..."
+                                        : "Simpan Perubahan"}
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

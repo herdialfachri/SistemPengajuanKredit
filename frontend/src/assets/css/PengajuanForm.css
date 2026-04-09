@@ -31,11 +31,10 @@
     justify-content: center;
     flex-shrink: 0;
 }
-.form-card-header h2 {
-    font-size: 15px;
+.form-card-header h3 {
+    font-size: 16px;
     font-weight: 600;
     color: var(--text-dark);
-    margin-bottom: 2px;
 }
 .form-card-header .header-subtitle {
     font-size: 12px;
@@ -108,7 +107,7 @@
 .input-wrapper input,
 .input-wrapper textarea {
     width: 100%;
-    padding: 10px 14px 10px 38px;
+    padding: 10px 14px;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     font-size: 14px;
@@ -137,6 +136,35 @@
 .input-wrapper textarea {
     resize: vertical;
     min-height: 90px;
+}
+.input-wrapper select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    color: var(--text-dark);
+    background-color: #f9fafb;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    outline: none;
+    transition: all 0.2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+.input-wrapper select:focus {
+    border-color: var(--primary-color);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23dc2626' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+}
+.input-wrapper select::placeholder {
+    color: #9ca3af;
+    font-size: 13px;
 }
 
 /* --- Section Divider --- */
@@ -189,6 +217,7 @@
     display: flex;
     flex-direction: column;
     gap: 3px;
+    text-align: left;
 }
 .file-placeholder span:first-child {
     font-size: 13px;
