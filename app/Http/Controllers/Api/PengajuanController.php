@@ -135,4 +135,18 @@ class PengajuanController extends Controller
             'message' => 'Pengajuan berhasil dihapus',
         ]);
     }
+
+    // ================= PENGAJUAN DISETUJUI =================
+    public function disetujui()
+    {
+        $data = Pengajuan::where('status', 'disetujui')
+            ->with('pencairan')
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'message' => 'Data pengajuan disetujui',
+            'data'    => $data,
+        ]);
+    }
 }

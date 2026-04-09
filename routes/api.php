@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // ---------- PENGAJUAN ----------
     Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
+        Route::get('/disetujui', [PengajuanController::class, 'disetujui']);
         Route::get('/', [PengajuanController::class, 'index'])->name('index');       // GET all
         Route::post('/', [PengajuanController::class, 'store'])->name('store');      // CREATE
         Route::get('/{pengajuan}', [PengajuanController::class, 'show'])->name('show'); // READ single

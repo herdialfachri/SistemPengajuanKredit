@@ -26,26 +26,32 @@ class PencairanController extends Controller
         $request->validate([
             'jumlah_cair'       => 'required|numeric',
             'tanggal_cair'      => 'required|date',
-            'dokumentasi'       => 'required|string',
-            'dokumen_pendukung' => 'required|string',
+            'dokumentasi'       => 'required|file|mimes:pdf|max:10240',
+            'dokumen_pendukung' => 'required|file|mimes:pdf|max:10240',
             'catatan'           => 'nullable|string',
         ]);
 
         $pengajuan = Pengajuan::findOrFail($pengajuan_id);
 
+        // simpan file ke storage/app/public
+        $dokumentasiPath = $request->file('dokumentasi')->store('dokumentasi', 'public');
+        $dokumenPendukungPath = $request->file('dokumen_pendukung')->store('dokumen_pendukung', 'public');
+
         $pencairan = Pencairan::create([
             'pengajuan_id'      => $pengajuan->id,
-            'admin_id'          => $request->user()->id, // otomatis ambil admin yg login
+            'admin_id'          => $request->user()->id,
             'jumlah_cair'       => $request->jumlah_cair,
             'tanggal_cair'      => $request->tanggal_cair,
             'catatan'           => $request->catatan,
-            'dokumentasi'       => $request->dokumentasi,
-            'dokumen_pendukung' => $request->dokumen_pendukung,
-            'status_cair'       => true,
+            'dokumentasi'       => $dokumentasiPath,
+            'dokumen_pendukung' => $dokumenPendukungPath,
+            'status'            => 'selesai',
         ]);
 
+        $pengajuan->update(['status' => 'dicairkan']);
+
         return response()->json([
-            'message' => 'Pencairan berhasil dibuat',
+            'message' => 'Pencairan berhasil dibuat dan status pengajuan diubah menjadi dicairkan',
             'data'    => $pencairan,
         ], 201);
     }
