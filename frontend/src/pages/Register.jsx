@@ -13,7 +13,7 @@ export default function Register() {
         no_hp: "",
         tempat_lahir: "",
         tanggal_lahir: "",
-        jenis_kelamin: "",
+        jenis_kelamin: "laki-laki",
         status_perkawinan: "",
         pekerjaan: "",
         alamat: "",
@@ -32,6 +32,7 @@ export default function Register() {
         if (!form.password) newErrors.password = true;
         if (!form.nama) newErrors.nama = true;
         if (!form.nik) newErrors.nik = true;
+        if (!form.jenis_kelamin) newErrors.jenis_kelamin = true;
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
