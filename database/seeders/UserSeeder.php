@@ -17,8 +17,8 @@ class UserSeeder extends Seeder
             // Pimpinan
             [
                 'nik' => '3201010000000001',
-                'nama' => 'Pak Pimpinan',
-                'email' => 'pimpinan@example.com',
+                'nama' => 'Adis Suryana',
+                'email' => 'adis@bprsupra.co.id',
                 'email_verified_at' => now(),
                 'no_hp' => '081111111111',
                 'tempat_lahir' => 'Sukabumi',
@@ -36,8 +36,8 @@ class UserSeeder extends Seeder
             // Admin
             [
                 'nik' => '3201010000000002',
-                'nama' => 'Bu Admin',
-                'email' => 'admin@example.com',
+                'nama' => 'Arantika Sri Dewi',
+                'email' => 'arantika@bprsupra.co.id',
                 'email_verified_at' => now(),
                 'no_hp' => '082222222222',
                 'tempat_lahir' => 'Bandung',
@@ -55,8 +55,8 @@ class UserSeeder extends Seeder
             // Marketing
             [
                 'nik' => '3201010000000003',
-                'nama' => 'Mas Marketing',
-                'email' => 'marketing@example.com',
+                'nama' => 'Gibran Akbar Revansa',
+                'email' => 'gibran@bprsupra.co.id',
                 'email_verified_at' => now(),
                 'no_hp' => '083333333333',
                 'tempat_lahir' => 'Jakarta',
@@ -74,8 +74,8 @@ class UserSeeder extends Seeder
             // Nasabah
             [
                 'nik' => '3201010000000004',
-                'nama' => 'Ibu Nasabah',
-                'email' => 'nasabah@example.com',
+                'nama' => 'Cecep Jumadi',
+                'email' => 'cecep@bprsupra.co.id',
                 'email_verified_at' => null,
                 'no_hp' => '084444444444',
                 'tempat_lahir' => 'Bogor',
