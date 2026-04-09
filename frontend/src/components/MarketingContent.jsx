@@ -182,14 +182,42 @@ export default function MarketingContent({ stats }) {
                                                 </span>
                                             </td>
                                             <td>
-                                                {row.dokumen_pendukung_url ? (
+                                                <div
+                                                    style={{
+                                                        display: "flex",
+                                                        gap: "8px",
+                                                        alignItems: "center",
+                                                    }}
+                                                >
+                                                    {row.dokumen_pendukung_url ? (
+                                                        <button
+                                                            className="btn-download"
+                                                            onClick={() =>
+                                                                window.open(
+                                                                    row.dokumen_pendukung_url,
+                                                                    "_blank",
+                                                                )
+                                                            }
+                                                        >
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 1 1 1-1zm8 7V3.5L18.5 9H14zM8 13h8v2H8v-2zm0 4h8v2H8v-2z" />
+                                                            </svg>
+                                                            PDF
+                                                        </button>
+                                                    ) : (
+                                                        <span className="text-muted">
+                                                            Tidak ada
+                                                        </span>
+                                                    )}
+
                                                     <button
-                                                        className="btn-download"
+                                                        className="btn-edit"
                                                         onClick={() =>
-                                                            window.open(
-                                                                row.dokumen_pendukung_url,
-                                                                "_blank",
-                                                            )
+                                                            handleEdit(row)
                                                         }
                                                     >
                                                         <svg
@@ -197,73 +225,47 @@ export default function MarketingContent({ stats }) {
                                                             fill="currentColor"
                                                             viewBox="0 0 24 24"
                                                         >
-                                                            <path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 1 1 1-1zm8 7V3.5L18.5 9H14zM8 13h8v2H8v-2zm0 4h8v2H8v-2z" />
-                                                        </svg>
-                                                        PDF
-                                                    </button>
-                                                ) : (
-                                                    <span className="text-muted">
-                                                        Tidak ada
-                                                    </span>
-                                                )}
-
-                                                <button
-                                                    className="btn-edit"
-                                                    onClick={() =>
-                                                        handleEdit(row)
-                                                    }
-                                                    style={{
-                                                        marginLeft: "8px",
-                                                    }}
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 
+                                                            <path
+                                                                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 
                          7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 
                          1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 
                          1.84-1.82z"
-                                                        />
-                                                    </svg>
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    className="btn-edit"
-                                                    onClick={() =>
-                                                        setExpandedRow(
-                                                            isExpanded
-                                                                ? null
-                                                                : row.id,
-                                                        )
-                                                    }
-                                                    style={{
-                                                        marginLeft: "8px",
-                                                    }}
-                                                >
-                                                    {isExpanded
-                                                        ? "Tutup"
-                                                        : "Detail"}
-                                                    {isExpanded ? (
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path d="M7 14l5-5 5 5H7z" />
+                                                            />
                                                         </svg>
-                                                    ) : (
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path d="M7 10l5 5 5-5H7z" />
-                                                        </svg>
-                                                    )}
-                                                </button>
+                                                        Edit
+                                                    </button>
+                                                    <button
+                                                        className="btn-edit"
+                                                        onClick={() =>
+                                                            setExpandedRow(
+                                                                isExpanded
+                                                                    ? null
+                                                                    : row.id,
+                                                            )
+                                                        }
+                                                    >
+                                                        {isExpanded
+                                                            ? "Tutup"
+                                                            : "Detail"}
+                                                        {isExpanded ? (
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path d="M7 14l5-5 5 5H7z" />
+                                                            </svg>
+                                                        ) : (
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path d="M7 10l5 5 5-5H7z" />
+                                                            </svg>
+                                                        )}
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -329,66 +331,200 @@ export default function MarketingContent({ stats }) {
 
             {/* Modal Edit */}
             {showModal && (
-                <div className="modal">
-                    <h3>Edit Pengajuan</h3>
-
-                    {/* Approve ID */}
-                    <select
-                        value={formData.approve_id || ""}
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                approve_id: e.target.value,
-                            })
-                        }
+                <div
+                    className="modal-overlay"
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "rgba(0,0,0,0.5)",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: 1000,
+                    }}
+                >
+                    <div
+                        className="modal-content form-card"
+                        style={{
+                            backgroundColor: "white",
+                            padding: "20px",
+                            borderRadius: "8px",
+                            maxWidth: "500px",
+                            width: "100%",
+                            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                        }}
                     >
-                        <option value="">-- Pilih Pimpinan --</option>
-                        {pimpinanList.map((p) => (
-                            <option key={p.id} value={p.id}>
-                                {p.nama}
-                            </option>
-                        ))}
-                    </select>
-
-                    {/* Taksasi */}
-                    <input
-                        type="number"
-                        value={formData.taksasi || ""}
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                taksasi: e.target.value,
-                            })
-                        }
-                        placeholder="Taksasi"
-                    />
-
-                    {/* Status */}
-                    <select
-                        value={formData.status}
-                        onChange={(e) =>
-                            setFormData({ ...formData, status: e.target.value })
-                        }
-                    >
-                        <option value="dokumen_tidak_lengkap">
-                            Dokumen Tidak Lengkap
-                        </option>
-                        <option value="verifikasi">Verifikasi</option>
-                        <option value="menunggu_persetujuan">
-                            Menunggu Persetujuan
-                        </option>
-                    </select>
-
-                    <div className="modal-actions">
-                        <button onClick={handleUpdate} className="btn-save">
-                            Simpan
-                        </button>
-                        <button
-                            onClick={() => setShowModal(false)}
-                            className="btn-cancel"
+                        <h3
+                            style={{
+                                marginBottom: "24px",
+                                color: "#333",
+                                fontSize: "20px",
+                                fontWeight: "600",
+                            }}
                         >
-                            Batal
-                        </button>
+                            Edit Pengajuan
+                        </h3>
+
+                        {/* Approve ID */}
+                        <div
+                            className="input-wrapper"
+                            style={{ marginBottom: "20px" }}
+                        >
+                            <label
+                                style={{
+                                    display: "block",
+                                    marginBottom: "8px",
+                                    fontWeight: "600",
+                                    color: "#555",
+                                }}
+                            >
+                                Pilih Pimpinan
+                            </label>
+                            <select
+                                value={formData.approve_id || ""}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        approve_id: e.target.value,
+                                    })
+                                }
+                                style={{
+                                    width: "100%",
+                                    padding: "12px",
+                                    border: "1px solid #ddd",
+                                    borderRadius: "4px",
+                                    fontSize: "16px",
+                                    backgroundColor: "#fff",
+                                }}
+                            >
+                                <option value="">-- Pilih Pimpinan --</option>
+                                {pimpinanList.map((p) => (
+                                    <option key={p.id} value={p.id}>
+                                        {p.nama}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Taksasi */}
+                        <div
+                            className="input-wrapper"
+                            style={{ marginBottom: "20px" }}
+                        >
+                            <label
+                                style={{
+                                    display: "block",
+                                    marginBottom: "8px",
+                                    fontWeight: "600",
+                                    color: "#555",
+                                }}
+                            >
+                                Taksasi
+                            </label>
+                            <input
+                                type="number"
+                                value={formData.taksasi || ""}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        taksasi: e.target.value,
+                                    })
+                                }
+                                placeholder="Taksasi"
+                                style={{
+                                    width: "100%",
+                                    padding: "12px",
+                                    border: "1px solid #ddd",
+                                    borderRadius: "4px",
+                                    fontSize: "16px",
+                                    backgroundColor: "#fff",
+                                }}
+                            />
+                        </div>
+
+                        {/* Status */}
+                        <div
+                            className="input-wrapper"
+                            style={{ marginBottom: "24px" }}
+                        >
+                            <label
+                                style={{
+                                    display: "block",
+                                    marginBottom: "8px",
+                                    fontWeight: "600",
+                                    color: "#555",
+                                }}
+                            >
+                                Status
+                            </label>
+                            <select
+                                value={formData.status}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        status: e.target.value,
+                                    })
+                                }
+                                style={{
+                                    width: "100%",
+                                    padding: "12px",
+                                    border: "1px solid #ddd",
+                                    borderRadius: "4px",
+                                    fontSize: "16px",
+                                    backgroundColor: "#fff",
+                                }}
+                            >
+                                <option value="dokumen_tidak_lengkap">
+                                    Dokumen Tidak Lengkap
+                                </option>
+                                <option value="verifikasi">Verifikasi</option>
+                                <option value="menunggu_persetujuan">
+                                    Menunggu Persetujuan
+                                </option>
+                            </select>
+                        </div>
+
+                        <div
+                            className="modal-actions"
+                            style={{
+                                display: "flex",
+                                gap: "12px",
+                                justifyContent: "flex-end",
+                                marginTop: "24px",
+                            }}
+                        >
+                            <button
+                                onClick={handleUpdate}
+                                className="btn-save"
+                                style={{
+                                    padding: "10px 20px",
+                                    backgroundColor: "#007bff",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                Simpan
+                            </button>
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="btn-cancel"
+                                style={{
+                                    padding: "10px 20px",
+                                    backgroundColor: "#6c757d",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                Batal
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
