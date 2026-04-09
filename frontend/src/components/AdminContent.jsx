@@ -168,10 +168,11 @@ export default function AdminContent({ stats }) {
                                         </span>
                                     </td>
                                     <td>
-                                        <button onClick={() => openModal(row)}>
-                                            {row.pencairan
-                                                ? "Edit Pencairan"
-                                                : "Buat Pencairan"}
+                                        <button
+                                            className="btn-edit"
+                                            onClick={() => openModal(row)}
+                                        >
+                                            {row.pencairan ? "Edit" : "Cairkan"}
                                         </button>
                                     </td>
                                 </tr>
@@ -183,63 +184,238 @@ export default function AdminContent({ stats }) {
 
             {/* Modal */}
             {isModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <h3>
+                <div
+                    className="modal-overlay"
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "rgba(0,0,0,0.5)",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: 1000,
+                    }}
+                >
+                    <div
+                        className="modal-content form-card"
+                        style={{
+                            backgroundColor: "white",
+                            padding: "20px",
+                            borderRadius: "8px",
+                            maxWidth: "500px",
+                            width: "100%",
+                            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                            maxHeight: "80vh",
+                            overflowY: "auto",
+                        }}
+                    >
+                        <h3
+                            style={{
+                                marginBottom: "24px",
+                                color: "#333",
+                                fontSize: "20px",
+                                fontWeight: "600",
+                            }}
+                        >
                             {selectedRow.pencairan
                                 ? "Edit Pencairan"
                                 : "Buat Pencairan"}
                         </h3>
                         <form>
-                            <label>Jumlah Cair</label>
-                            <input
-                                type="number"
-                                name="jumlah_cair"
-                                value={formData.jumlah_cair}
-                                onChange={handleChange}
-                            />
-                            <label>Tanggal Cair</label>
-                            <input
-                                type="date"
-                                name="tanggal_cair"
-                                value={formData.tanggal_cair}
-                                onChange={handleChange}
-                            />
-                            <label>Catatan</label>
-                            <textarea
-                                name="catatan"
-                                value={formData.catatan}
-                                onChange={handleChange}
-                            ></textarea>
-                            <label>Dokumentasi (PDF)</label>
-                            <input
-                                type="file"
-                                name="dokumentasi"
-                                accept="application/pdf"
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        dokumentasi: e.target.files[0],
-                                    })
-                                }
-                            />
-
-                            <label>Dokumen Pendukung (PDF)</label>
-                            <input
-                                type="file"
-                                name="dokumen_pendukung"
-                                accept="application/pdf"
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        dokumen_pendukung: e.target.files[0],
-                                    })
-                                }
-                            />
+                            <div
+                                className="input-wrapper"
+                                style={{ marginBottom: "20px" }}
+                            >
+                                <label
+                                    style={{
+                                        display: "block",
+                                        marginBottom: "8px",
+                                        fontWeight: "600",
+                                        color: "#555",
+                                    }}
+                                >
+                                    Jumlah Cair
+                                </label>
+                                <input
+                                    type="number"
+                                    name="jumlah_cair"
+                                    value={formData.jumlah_cair}
+                                    onChange={handleChange}
+                                    style={{
+                                        width: "100%",
+                                        padding: "12px",
+                                        border: "1px solid #ddd",
+                                        borderRadius: "4px",
+                                        fontSize: "16px",
+                                        backgroundColor: "#fff",
+                                    }}
+                                />
+                            </div>
+                            <div
+                                className="input-wrapper"
+                                style={{ marginBottom: "20px" }}
+                            >
+                                <label
+                                    style={{
+                                        display: "block",
+                                        marginBottom: "8px",
+                                        fontWeight: "600",
+                                        color: "#555",
+                                    }}
+                                >
+                                    Tanggal Cair
+                                </label>
+                                <input
+                                    type="date"
+                                    name="tanggal_cair"
+                                    value={formData.tanggal_cair}
+                                    onChange={handleChange}
+                                    style={{
+                                        width: "100%",
+                                        padding: "12px",
+                                        border: "1px solid #ddd",
+                                        borderRadius: "4px",
+                                        fontSize: "16px",
+                                        backgroundColor: "#fff",
+                                    }}
+                                />
+                            </div>
+                            <div
+                                className="input-wrapper"
+                                style={{ marginBottom: "20px" }}
+                            >
+                                <label
+                                    style={{
+                                        display: "block",
+                                        marginBottom: "8px",
+                                        fontWeight: "600",
+                                        color: "#555",
+                                    }}
+                                >
+                                    Catatan
+                                </label>
+                                <textarea
+                                    name="catatan"
+                                    value={formData.catatan}
+                                    onChange={handleChange}
+                                    style={{
+                                        width: "100%",
+                                        padding: "12px",
+                                        border: "1px solid #ddd",
+                                        borderRadius: "4px",
+                                        fontSize: "16px",
+                                        backgroundColor: "#fff",
+                                        minHeight: "80px",
+                                        resize: "vertical",
+                                    }}
+                                ></textarea>
+                            </div>
+                            <div
+                                className="input-wrapper"
+                                style={{ marginBottom: "20px" }}
+                            >
+                                <label
+                                    style={{
+                                        display: "block",
+                                        marginBottom: "8px",
+                                        fontWeight: "600",
+                                        color: "#555",
+                                    }}
+                                >
+                                    Dokumentasi (PDF)
+                                </label>
+                                <input
+                                    type="file"
+                                    name="dokumentasi"
+                                    accept="application/pdf"
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            dokumentasi: e.target.files[0],
+                                        })
+                                    }
+                                    style={{
+                                        width: "100%",
+                                        padding: "8px",
+                                        border: "1px solid #ddd",
+                                        borderRadius: "4px",
+                                        backgroundColor: "#fff",
+                                    }}
+                                />
+                            </div>
+                            <div
+                                className="input-wrapper"
+                                style={{ marginBottom: "24px" }}
+                            >
+                                <label
+                                    style={{
+                                        display: "block",
+                                        marginBottom: "8px",
+                                        fontWeight: "600",
+                                        color: "#555",
+                                    }}
+                                >
+                                    Dokumen Pendukung (PDF)
+                                </label>
+                                <input
+                                    type="file"
+                                    name="dokumen_pendukung"
+                                    accept="application/pdf"
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            dokumen_pendukung:
+                                                e.target.files[0],
+                                        })
+                                    }
+                                    style={{
+                                        width: "100%",
+                                        padding: "8px",
+                                        border: "1px solid #ddd",
+                                        borderRadius: "4px",
+                                        backgroundColor: "#fff",
+                                    }}
+                                />
+                            </div>
                         </form>
-                        <div className="modal-actions">
-                            <button onClick={handleSave}>Simpan</button>
-                            <button onClick={closeModal}>Batal</button>
+                        <div
+                            className="modal-actions"
+                            style={{
+                                display: "flex",
+                                gap: "12px",
+                                justifyContent: "flex-end",
+                                marginTop: "24px",
+                            }}
+                        >
+                            <button
+                                onClick={handleSave}
+                                style={{
+                                    padding: "10px 20px",
+                                    backgroundColor: "#007bff",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                Simpan
+                            </button>
+                            <button
+                                onClick={closeModal}
+                                style={{
+                                    padding: "10px 20px",
+                                    backgroundColor: "#6c757d",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                Batal
+                            </button>
                         </div>
                     </div>
                 </div>
