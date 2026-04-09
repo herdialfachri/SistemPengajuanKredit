@@ -184,149 +184,42 @@ export default function AdminContent({ stats }) {
 
             {/* Modal */}
             {isModalOpen && (
-                <div
-                    className="modal-overlay"
-                    style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0,0,0,0.5)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 1000,
-                    }}
-                >
-                    <div
-                        className="modal-content form-card"
-                        style={{
-                            backgroundColor: "white",
-                            padding: "20px",
-                            borderRadius: "8px",
-                            maxWidth: "500px",
-                            width: "100%",
-                            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                            maxHeight: "80vh",
-                            overflowY: "auto",
-                        }}
-                    >
-                        <h3
-                            style={{
-                                marginBottom: "24px",
-                                color: "#333",
-                                fontSize: "20px",
-                                fontWeight: "600",
-                            }}
-                        >
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>
                             {selectedRow.pencairan
                                 ? "Edit Pencairan"
                                 : "Buat Pencairan"}
                         </h3>
                         <form>
-                            <div
-                                className="input-wrapper"
-                                style={{ marginBottom: "20px" }}
-                            >
-                                <label
-                                    style={{
-                                        display: "block",
-                                        marginBottom: "8px",
-                                        fontWeight: "600",
-                                        color: "#555",
-                                    }}
-                                >
-                                    Jumlah Cair
-                                </label>
+                            <div className="input-wrapper">
+                                <label>Jumlah Cair</label>
                                 <input
                                     type="number"
                                     name="jumlah_cair"
                                     value={formData.jumlah_cair}
                                     onChange={handleChange}
-                                    style={{
-                                        width: "100%",
-                                        padding: "12px",
-                                        border: "1px solid #ddd",
-                                        borderRadius: "4px",
-                                        fontSize: "16px",
-                                        backgroundColor: "#fff",
-                                    }}
                                 />
                             </div>
-                            <div
-                                className="input-wrapper"
-                                style={{ marginBottom: "20px" }}
-                            >
-                                <label
-                                    style={{
-                                        display: "block",
-                                        marginBottom: "8px",
-                                        fontWeight: "600",
-                                        color: "#555",
-                                    }}
-                                >
-                                    Tanggal Cair
-                                </label>
+                            <div className="input-wrapper">
+                                <label>Tanggal Cair</label>
                                 <input
                                     type="date"
                                     name="tanggal_cair"
                                     value={formData.tanggal_cair}
                                     onChange={handleChange}
-                                    style={{
-                                        width: "100%",
-                                        padding: "12px",
-                                        border: "1px solid #ddd",
-                                        borderRadius: "4px",
-                                        fontSize: "16px",
-                                        backgroundColor: "#fff",
-                                    }}
                                 />
                             </div>
-                            <div
-                                className="input-wrapper"
-                                style={{ marginBottom: "20px" }}
-                            >
-                                <label
-                                    style={{
-                                        display: "block",
-                                        marginBottom: "8px",
-                                        fontWeight: "600",
-                                        color: "#555",
-                                    }}
-                                >
-                                    Catatan
-                                </label>
+                            <div className="input-wrapper">
+                                <label>Catatan</label>
                                 <textarea
                                     name="catatan"
                                     value={formData.catatan}
                                     onChange={handleChange}
-                                    style={{
-                                        width: "100%",
-                                        padding: "12px",
-                                        border: "1px solid #ddd",
-                                        borderRadius: "4px",
-                                        fontSize: "16px",
-                                        backgroundColor: "#fff",
-                                        minHeight: "80px",
-                                        resize: "vertical",
-                                    }}
                                 ></textarea>
                             </div>
-                            <div
-                                className="input-wrapper"
-                                style={{ marginBottom: "20px" }}
-                            >
-                                <label
-                                    style={{
-                                        display: "block",
-                                        marginBottom: "8px",
-                                        fontWeight: "600",
-                                        color: "#555",
-                                    }}
-                                >
-                                    Dokumentasi (PDF)
-                                </label>
+                            <div className="input-wrapper">
+                                <label>Dokumentasi (PDF)</label>
                                 <input
                                     type="file"
                                     name="dokumentasi"
@@ -337,13 +230,6 @@ export default function AdminContent({ stats }) {
                                             dokumentasi: e.target.files[0],
                                         })
                                     }
-                                    style={{
-                                        width: "100%",
-                                        padding: "8px",
-                                        border: "1px solid #ddd",
-                                        borderRadius: "4px",
-                                        backgroundColor: "#fff",
-                                    }}
                                 />
                             </div>
                             <div
@@ -381,39 +267,11 @@ export default function AdminContent({ stats }) {
                                 />
                             </div>
                         </form>
-                        <div
-                            className="modal-actions"
-                            style={{
-                                display: "flex",
-                                gap: "12px",
-                                justifyContent: "flex-end",
-                                marginTop: "24px",
-                            }}
-                        >
-                            <button
-                                onClick={handleSave}
-                                style={{
-                                    padding: "10px 20px",
-                                    backgroundColor: "#007bff",
-                                    color: "white",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                }}
-                            >
+                        <div className="modal-actions">
+                            <button onClick={handleSave} className="btn-save">
                                 Simpan
                             </button>
-                            <button
-                                onClick={closeModal}
-                                style={{
-                                    padding: "10px 20px",
-                                    backgroundColor: "#6c757d",
-                                    color: "white",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                }}
-                            >
+                            <button onClick={closeModal} className="btn-cancel">
                                 Batal
                             </button>
                         </div>

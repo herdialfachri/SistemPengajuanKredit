@@ -331,58 +331,13 @@ export default function MarketingContent({ stats }) {
 
             {/* Modal Edit */}
             {showModal && (
-                <div
-                    className="modal-overlay"
-                    style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0,0,0,0.5)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 1000,
-                    }}
-                >
-                    <div
-                        className="modal-content form-card"
-                        style={{
-                            backgroundColor: "white",
-                            padding: "20px",
-                            borderRadius: "8px",
-                            maxWidth: "500px",
-                            width: "100%",
-                            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                        }}
-                    >
-                        <h3
-                            style={{
-                                marginBottom: "24px",
-                                color: "#333",
-                                fontSize: "20px",
-                                fontWeight: "600",
-                            }}
-                        >
-                            Edit Pengajuan
-                        </h3>
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>Edit Pengajuan</h3>
 
                         {/* Approve ID */}
-                        <div
-                            className="input-wrapper"
-                            style={{ marginBottom: "20px" }}
-                        >
-                            <label
-                                style={{
-                                    display: "block",
-                                    marginBottom: "8px",
-                                    fontWeight: "600",
-                                    color: "#555",
-                                }}
-                            >
-                                Pilih Pimpinan
-                            </label>
+                        <div className="input-wrapper">
+                            <label>Pilih Pimpinan</label>
                             <select
                                 value={formData.approve_id || ""}
                                 onChange={(e) =>
@@ -391,14 +346,6 @@ export default function MarketingContent({ stats }) {
                                         approve_id: e.target.value,
                                     })
                                 }
-                                style={{
-                                    width: "100%",
-                                    padding: "12px",
-                                    border: "1px solid #ddd",
-                                    borderRadius: "4px",
-                                    fontSize: "16px",
-                                    backgroundColor: "#fff",
-                                }}
                             >
                                 <option value="">-- Pilih Pimpinan --</option>
                                 {pimpinanList.map((p) => (
@@ -410,20 +357,8 @@ export default function MarketingContent({ stats }) {
                         </div>
 
                         {/* Taksasi */}
-                        <div
-                            className="input-wrapper"
-                            style={{ marginBottom: "20px" }}
-                        >
-                            <label
-                                style={{
-                                    display: "block",
-                                    marginBottom: "8px",
-                                    fontWeight: "600",
-                                    color: "#555",
-                                }}
-                            >
-                                Taksasi
-                            </label>
+                        <div className="input-wrapper">
+                            <label>Taksasi</label>
                             <input
                                 type="number"
                                 value={formData.taksasi || ""}
@@ -434,32 +369,12 @@ export default function MarketingContent({ stats }) {
                                     })
                                 }
                                 placeholder="Taksasi"
-                                style={{
-                                    width: "100%",
-                                    padding: "12px",
-                                    border: "1px solid #ddd",
-                                    borderRadius: "4px",
-                                    fontSize: "16px",
-                                    backgroundColor: "#fff",
-                                }}
                             />
                         </div>
 
                         {/* Status */}
-                        <div
-                            className="input-wrapper"
-                            style={{ marginBottom: "24px" }}
-                        >
-                            <label
-                                style={{
-                                    display: "block",
-                                    marginBottom: "8px",
-                                    fontWeight: "600",
-                                    color: "#555",
-                                }}
-                            >
-                                Status
-                            </label>
+                        <div className="input-wrapper">
+                            <label>Status</label>
                             <select
                                 value={formData.status}
                                 onChange={(e) =>
@@ -468,14 +383,6 @@ export default function MarketingContent({ stats }) {
                                         status: e.target.value,
                                     })
                                 }
-                                style={{
-                                    width: "100%",
-                                    padding: "12px",
-                                    border: "1px solid #ddd",
-                                    borderRadius: "4px",
-                                    fontSize: "16px",
-                                    backgroundColor: "#fff",
-                                }}
                             >
                                 <option value="dokumen_tidak_lengkap">
                                     Dokumen Tidak Lengkap
@@ -487,40 +394,13 @@ export default function MarketingContent({ stats }) {
                             </select>
                         </div>
 
-                        <div
-                            className="modal-actions"
-                            style={{
-                                display: "flex",
-                                gap: "12px",
-                                justifyContent: "flex-end",
-                                marginTop: "24px",
-                            }}
-                        >
-                            <button
-                                onClick={handleUpdate}
-                                className="btn-save"
-                                style={{
-                                    padding: "10px 20px",
-                                    backgroundColor: "#007bff",
-                                    color: "white",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                }}
-                            >
+                        <div className="modal-actions">
+                            <button onClick={handleUpdate} className="btn-save">
                                 Simpan
                             </button>
                             <button
                                 onClick={() => setShowModal(false)}
                                 className="btn-cancel"
-                                style={{
-                                    padding: "10px 20px",
-                                    backgroundColor: "#6c757d",
-                                    color: "white",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                }}
                             >
                                 Batal
                             </button>
