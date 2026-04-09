@@ -149,8 +149,11 @@ export default function AdminContent({ stats }) {
                     <table className="modern-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Kode</th>
+                                <th>Kode Pengajuan</th>
+                                <th>NIK</th>
+                                <th>Nama</th>
+                                <th>Profesi</th>
+                                <th>Jumlah Plafon</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -158,8 +161,18 @@ export default function AdminContent({ stats }) {
                         <tbody>
                             {pengajuan.map((row) => (
                                 <tr key={row.id}>
-                                    <td>{row.id}</td>
                                     <td>{row.kode_pengajuan}</td>
+                                    <td>{row.nik}</td>
+                                    <td>{row.nama}</td>
+                                    <td>{row.profesi}</td>
+                                    <td>
+                                        {Number(
+                                            row.jumlah_plafon,
+                                        ).toLocaleString("id-ID", {
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 0,
+                                        })}
+                                    </td>
                                     <td>
                                         <span
                                             className={`status-badge ${row.status}`}
