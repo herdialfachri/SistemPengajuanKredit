@@ -169,7 +169,7 @@ export default function PengajuanForm() {
                     </div>
 
                     {/* Alamat */}
-                    <div className="form-group">
+                    <div className="form-group full-width">
                         <label>
                             Alamat <span className="required">*</span>
                         </label>
@@ -187,41 +187,44 @@ export default function PengajuanForm() {
                     {/* Section: Kredit */}
                     <div className="form-divider-label">Detail Kredit</div>
 
-                    {/* Jumlah Plafon */}
-                    <div className="form-group">
-                        <label>
-                            Jumlah Plafon <span className="required">*</span>
-                        </label>
-                        <div className="input-wrapper">
-                            <input
-                                type="number"
-                                name="jumlah_plafon"
-                                value={formData.jumlah_plafon}
-                                onChange={handleChange}
-                                placeholder="Nominal plafon yang diajukan (Rp)"
-                                required
-                            />
+                    <div className="form-row">
+                        {/* Jumlah Plafon */}
+                        <div className="form-group">
+                            <label>
+                                Jumlah Plafon{" "}
+                                <span className="required">*</span>
+                            </label>
+                            <div className="input-wrapper">
+                                <input
+                                    type="number"
+                                    name="jumlah_plafon"
+                                    value={formData.jumlah_plafon}
+                                    onChange={handleChange}
+                                    placeholder="Nominal plafon yang diajukan (Rp)"
+                                    required
+                                />
+                            </div>
                         </div>
-                    </div>
 
-                    {/* Agunan */}
-                    <div className="form-group">
-                        <label>
-                            Agunan <span className="required">*</span>
-                        </label>
-                        <div className="input-wrapper">
-                            <textarea
-                                name="agunan"
-                                value={formData.agunan}
-                                onChange={handleChange}
-                                placeholder="Deskripsikan agunan yang ditawarkan (misal: BPKB, SHM, dll)"
-                                required
-                            />
+                        {/* Agunan */}
+                        <div className="form-group">
+                            <label>
+                                Agunan <span className="required">*</span>
+                            </label>
+                            <div className="input-wrapper">
+                                <input
+                                    name="agunan"
+                                    value={formData.agunan}
+                                    onChange={handleChange}
+                                    placeholder="Deskripsikan agunan yang ditawarkan (misal: BPKB, SHM, dll)"
+                                    required
+                                />
+                            </div>
                         </div>
                     </div>
 
                     {/* Tujuan Pengajuan */}
-                    <div className="form-group">
+                    <div className="form-group full-width">
                         <label>
                             Tujuan Pengajuan <span className="required">*</span>
                         </label>
@@ -240,7 +243,7 @@ export default function PengajuanForm() {
                     <div className="form-divider-label">Dokumen</div>
 
                     {/* File Upload */}
-                    <div className="form-group">
+                    <div className="form-group full-width">
                         <label>
                             Dokumen Pendukung (PDF){" "}
                             <span className="required">*</span>

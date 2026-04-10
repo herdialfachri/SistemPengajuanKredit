@@ -44,16 +44,24 @@
 /* --- Form Body --- */
 .form-body {
     padding: 28px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
 }
 
 /* --- Form Row (2 kolom) --- */
 .form-row {
+    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
+    align-items: start;
+}
+
+.form-group.full-width,
+.form-divider-label,
+.form-footer {
+    grid-column: 1 / -1;
 }
 
 /* --- Form Group --- */
