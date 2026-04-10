@@ -136,7 +136,7 @@ export default function AdminContent({ stats }) {
             {/* Pengajuan Table */}
             <div className="table-container">
                 <div className="table-header">
-                    <h3>Data Pengajuan Disetujui</h3>
+                    <h3>Data Yang Menunggu Pencairan</h3>
                 </div>
 
                 {loading ? (

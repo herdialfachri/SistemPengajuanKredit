@@ -92,7 +92,7 @@ export default function Profile() {
                     <div className="form-card">
                         <div className="form-card-header">
                             <div>
-                                <h3>Edit Profile</h3>
+                                <h3>Ubah Profil</h3>
                             </div>
                         </div>
                         <form onSubmit={handleSubmit} className="form-body">
@@ -171,7 +171,7 @@ export default function Profile() {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="form-group">
+                            <div className="form-group full-width">
                                 <label>Alamat</label>
                                 <textarea
                                     name="alamat"
